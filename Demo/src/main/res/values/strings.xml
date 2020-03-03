@@ -108,8 +108,9 @@
 
     <!-- PayPalTwoFactorAuth -->
     <string name="paypal_two_factor_button">Launch PayPal 2FA</string>
-    <string name="nonce_hint">Enter Nonce</string>
+    <string name="nonce_hint">Tap billing agreement button to create nonce</string>
     <string name="amount_hint">Enter Amount</string>
+    <string name="default_two_factor_amount">2001</string>
 
     <!-- PreferredPaymentMethodsActivity -->
     <string name="fetch_preferred_payment_methods_button">Preferred Payment Methods</string>

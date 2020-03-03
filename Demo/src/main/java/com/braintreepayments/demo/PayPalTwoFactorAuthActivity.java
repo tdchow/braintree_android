@@ -2,12 +2,14 @@ package com.braintreepayments.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.braintreepayments.api.BraintreeFragment;
 import com.braintreepayments.api.PayPal;
@@ -17,9 +19,16 @@ import com.braintreepayments.api.interfaces.PayPalTwoFactorAuthCallback;
 import com.braintreepayments.api.models.PayPalRequest;
 import com.braintreepayments.api.models.PayPalTwoFactorAuthRequest;
 import com.braintreepayments.api.models.PaymentMethodNonce;
-import com.braintreepayments.api.models.PostalAddress;
+import com.braintreepayments.demo.internal.ApiClient;
+import com.braintreepayments.demo.models.Nonce;
+import com.braintreepayments.demo.models.PaymentMethodToken;
 
-public class PayPalTwoFactorAuthActivity extends BaseActivity {
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+// TODO This feature won't work with current Braintree sample merchant server until the account is updated to support PayPalTwoFactorAuth.
+public class PayPalTwoFactorAuthActivity extends BaseActivity implements TextWatcher {
 
     private EditText mAmountEditText;
     private EditText mNonceEditText;
@@ -34,7 +43,11 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity {
         setContentView(R.layout.activity_paypal_two_factor_auth);
 
         mAmountEditText = findViewById(R.id.amount_edit_text);
+        mAmountEditText.addTextChangedListener(this);
+
         mNonceEditText = findViewById(R.id.nonce_edit_text);
+        mNonceEditText.addTextChangedListener(this);
+
         mBillingAgreementButton = findViewById(R.id.paypal_billing_agreement_button);
         mPayPalTwoFactorAuthButton = findViewById(R.id.paypal_two_factor_auth_button);
     }
@@ -43,12 +56,37 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity {
     public void onPaymentMethodNonceCreated(PaymentMethodNonce paymentMethodNonce) {
         super.onPaymentMethodNonceCreated(paymentMethodNonce);
         if (billingAgreement) {
-            // send to server and get the second nonce thingy
-            mNonceEditText.setText("got a nonce!");
+
+            final ApiClient apiClient = DemoApplication.getApiClient(this);
+
+            // Use nonce from billing agreement to create a payment method token
+            apiClient.createPaymentMethodToken(Settings.getCustomerId(this), paymentMethodNonce.getNonce(), new Callback<PaymentMethodToken>() {
+                @Override
+                public void success(PaymentMethodToken token, Response response) {
+
+                    // When ready to transact, use payment method token to retrieve a new nonce
+                    apiClient.createPaymentMethodNonce(token.getToken(), new Callback<Nonce>() {
+                        @Override
+                        public void success(Nonce nonce, Response response) {
+                            mNonceEditText.setText(nonce.getNonce());
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            onError(error);
+                        }
+                    });
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    onError(error);
+                }
+            });
+
             billingAgreement = false;
         } else {
-            Intent intent = new Intent()
-                    .putExtra(MainActivity.EXTRA_PAYMENT_RESULT, paymentMethodNonce);
+            Intent intent = new Intent().putExtra(MainActivity.EXTRA_PAYMENT_RESULT, paymentMethodNonce);
             setResult(RESULT_OK, intent);
             finish();
         }
@@ -58,7 +96,7 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity {
     protected void onAuthorizationFetched() {
         try {
             mBraintreeFragment = BraintreeFragment.newInstance(this, mAuthorization);
-            enableButtons(true);
+            mBillingAgreementButton.setEnabled(true);
         } catch (InvalidArgumentException e) {
             onError(e);
         }
@@ -67,22 +105,27 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity {
     @Override
     protected void reset() {
         mNonceEditText.setText("");
-        enableButtons(false);
-    }
-
-    private void enableButtons(boolean enabled) {
-        mPayPalTwoFactorAuthButton.setEnabled(enabled);
-        mBillingAgreementButton.setEnabled(enabled);
+        mAmountEditText.setText(R.string.default_two_factor_amount);
+        mBillingAgreementButton.setEnabled(false);
+        mPayPalTwoFactorAuthButton.setEnabled(false);
     }
 
     public void launchBillingAgreement(View v) {
         billingAgreement = true;
         setProgressBarIndeterminateVisibility(true);
 
-        PayPal.requestBillingAgreement(mBraintreeFragment, getPayPalRequest());
+        PayPalRequest request = new PayPalRequest();
+        request.intent(PayPalRequest.INTENT_AUTHORIZE);
+
+        PayPal.requestBillingAgreement(mBraintreeFragment, request);
     }
 
-    public void onPayPalTwoFactorAuthButtonPress(View v) {
+    public void launchTwoFactorAuth(View v) {
+        if (TextUtils.isEmpty(Settings.getCustomerId(this))) {
+            onError(new Exception("Please add a customer ID in settings."));
+            return;
+        }
+
         PayPalTwoFactorAuthRequest request = new PayPalTwoFactorAuthRequest()
                 .amount(mAmountEditText.getText().toString())
                 .nonce(mNonceEditText.getText().toString())
@@ -102,9 +145,19 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity {
         });
     }
 
-    private PayPalRequest getPayPalRequest() {
-        PayPalRequest request = new PayPalRequest();
-        request.intent(PayPalRequest.INTENT_AUTHORIZE);
-        return request;
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // do nothing
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // do nothing
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        mPayPalTwoFactorAuthButton.setEnabled(!TextUtils.isEmpty(mNonceEditText.getText()) &&
+                !TextUtils.isEmpty(mAmountEditText.getText()));
     }
 }
