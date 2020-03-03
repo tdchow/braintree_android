@@ -14,8 +14,10 @@ public class Settings {
     private static final String PRODUCTION_BASE_SERVER_URL = "https://executive-sample-merchant.herokuapp.com";
     private static final String PRODUCTION_TOKENIZATION_KEY = "production_t2wns2y2_dfy45jdj3dxkmz5m";
 
+//    private static final String SANDBOX_BASE_SERVER_URL = "http://10.0.2.2:3132";
     private static final String SANDBOX_BASE_SERVER_URL = "https://braintree-sample-merchant.herokuapp.com";
-    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_tmxhyf7d_dcpspy2brwdjr3qn";
+    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_bn8fp75g_f38w7q9kcr3zcspd"; // Justin's tokenization key
+//    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_tmxhyf7d_dcpspy2brwdjr3qn"; // normal tokenization key
 
     private static SharedPreferences sSharedPreferences;
 
