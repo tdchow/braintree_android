@@ -6,18 +6,19 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.annotation.CallSuper;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+
+import androidx.annotation.CallSuper;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
+import androidx.core.content.ContextCompat;
 
 import com.braintreepayments.api.BraintreeFragment;
 import com.braintreepayments.api.interfaces.BraintreeCancelListener;
@@ -93,7 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnReques
 
     private void handleAuthorizationState() {
         if (mAuthorization == null ||
-                (Settings.useTokenizationKey(this) && !mAuthorization.equals(Settings.getEnvironmentTokenizationKey(this))) ||
+                (Settings.useTokenizationKey(this) && !mAuthorization.equals(Settings.getTokenizationKey(this))) ||
                 !TextUtils.equals(mCustomerId, Settings.getCustomerId(this))) {
             performReset();
         } else {
@@ -169,7 +170,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnReques
             setProgressBarIndeterminateVisibility(false);
             onAuthorizationFetched();
         } else if (Settings.useTokenizationKey(this)) {
-            mAuthorization = Settings.getEnvironmentTokenizationKey(this);
+            mAuthorization = Settings.getTokenizationKey(this);
             setProgressBarIndeterminateVisibility(false);
             onAuthorizationFetched();
         } else {

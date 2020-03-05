@@ -16,6 +16,7 @@ import com.braintreepayments.api.PayPal;
 import com.braintreepayments.api.PayPalTwoFactorAuth;
 import com.braintreepayments.api.exceptions.InvalidArgumentException;
 import com.braintreepayments.api.interfaces.PayPalTwoFactorAuthCallback;
+import com.braintreepayments.api.models.PayPalProductAttributes;
 import com.braintreepayments.api.models.PayPalRequest;
 import com.braintreepayments.api.models.PayPalTwoFactorAuthRequest;
 import com.braintreepayments.api.models.PaymentMethodNonce;
@@ -27,7 +28,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-// TODO This feature won't work with current Braintree sample merchant server until the account is updated to support PayPalTwoFactorAuth.
+// TODO This demo won't work with current Braintree sample merchant server until the account is updated to support PayPalTwoFactorAuth.
 public class PayPalTwoFactorAuthActivity extends BaseActivity implements TextWatcher {
 
     private EditText mAmountEditText;
@@ -95,6 +96,12 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity implements TextWat
     @Override
     protected void onAuthorizationFetched() {
         try {
+            if (!mAuthorization.equals(Settings.PAYPAL_2FA_TOKENIZATION_KEY)) {
+                Exception error = new Exception("Select the PayPal 2FA tokenization key in Settings");
+                onError(error);
+                return;
+            }
+
             mBraintreeFragment = BraintreeFragment.newInstance(this, mAuthorization);
             mBillingAgreementButton.setEnabled(true);
         } catch (InvalidArgumentException e) {
@@ -114,8 +121,15 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity implements TextWat
         billingAgreement = true;
         setProgressBarIndeterminateVisibility(true);
 
-        PayPalRequest request = new PayPalRequest();
-        request.intent(PayPalRequest.INTENT_AUTHORIZE);
+        PayPalProductAttributes attributes = new PayPalProductAttributes()
+                .name("Braintree")
+                .chargePattern("DEFERRED")
+                .productCode("BT");
+
+        PayPalRequest request = new PayPalRequest()
+                .productAttributes(attributes)
+                .localeCode("IN")
+                .billingAgreementDescription("Braintree Test Payment");
 
         PayPal.requestBillingAgreement(mBraintreeFragment, request);
     }

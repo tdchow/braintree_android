@@ -28,4 +28,10 @@
         <item name="billing">@string/paypal_landing_page_type_billing</item>
         <item name="login">@string/paypal_landing_page_type_login</item>
     </string-array>
+
+    <string-array name="tokenization_keys">
+        <item name="default">@string/default_tokenization_key</item>
+        <item name="local_payments">@string/local_payments_tokenization_key</item>
+        <item name="paypal_two_factor">@string/paypal_two_factor_tokenization_key</item>
+    </string-array>
 </resources>

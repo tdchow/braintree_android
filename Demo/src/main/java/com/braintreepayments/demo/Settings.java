@@ -9,15 +9,16 @@ import java.util.List;
 
 public class Settings {
 
-    protected static final String ENVIRONMENT = "environment";
+    private static final String ENVIRONMENT = "environment";
 
     private static final String PRODUCTION_BASE_SERVER_URL = "https://executive-sample-merchant.herokuapp.com";
     private static final String PRODUCTION_TOKENIZATION_KEY = "production_t2wns2y2_dfy45jdj3dxkmz5m";
 
-//    private static final String SANDBOX_BASE_SERVER_URL = "http://10.0.2.2:3132";
     private static final String SANDBOX_BASE_SERVER_URL = "https://braintree-sample-merchant.herokuapp.com";
-    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_bn8fp75g_f38w7q9kcr3zcspd"; // Justin's tokenization key
-//    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_tmxhyf7d_dcpspy2brwdjr3qn"; // normal tokenization key
+    private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_tmxhyf7d_dcpspy2brwdjr3qn";
+
+    static final String LOCAL_PAYMENTS_TOKENIZATION_KEY = "sandbox_f252zhq7_hh4cpc39zq4rgjcg";
+    static final String PAYPAL_2FA_TOKENIZATION_KEY = "sandbox_bn8fp75g_f38w7q9kcr3zcspd";
 
     private static SharedPreferences sSharedPreferences;
 
@@ -89,25 +90,19 @@ public class Settings {
         return getPreferences(context).getBoolean("tokenization_key", false);
     }
 
-    public static String getEnvironmentTokenizationKey(Context context) {
+    public static String getTokenizationKey(Context context) {
         int environment = getEnvironment(context);
-        if (environment == 0) {
-            return SANDBOX_TOKENIZATION_KEY;
-        } else if (environment == 1) {
+        if (environment == 1) {
             return PRODUCTION_TOKENIZATION_KEY;
-        } else {
-            return "";
         }
-    }
 
-    public static String getEnvironmentTokenizationKeyForLocalPayment(Context context) {
-        int environment = getEnvironment(context);
-        if (environment == 0) {
-            return "sandbox_f252zhq7_hh4cpc39zq4rgjcg";
-        } else if (environment == 1) {
-            return PRODUCTION_TOKENIZATION_KEY;
+        String type = getPreferences(context).getString("tokenization_key_type", "default_tokenization_key");
+        if (context.getString(R.string.local_payments_tokenization_key).equals(type)) {
+            return LOCAL_PAYMENTS_TOKENIZATION_KEY;
+        } else if (context.getString(R.string.paypal_two_factor_tokenization_key).equals(type)) {
+            return PAYPAL_2FA_TOKENIZATION_KEY;
         } else {
-            return "";
+            return SANDBOX_TOKENIZATION_KEY;
         }
     }
 
