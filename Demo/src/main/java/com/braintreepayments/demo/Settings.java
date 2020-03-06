@@ -17,6 +17,8 @@ public class Settings {
     private static final String SANDBOX_BASE_SERVER_URL = "https://braintree-sample-merchant.herokuapp.com";
     private static final String SANDBOX_TOKENIZATION_KEY = "sandbox_tmxhyf7d_dcpspy2brwdjr3qn";
 
+    private static final String SANDBOX_INDIA_BASE_SERVER_URL = "https://braintree-india-2fa-merchant.herokuapp.com/";
+
     static final String LOCAL_PAYMENTS_TOKENIZATION_KEY = "sandbox_f252zhq7_hh4cpc39zq4rgjcg";
     static final String PAYPAL_2FA_TOKENIZATION_KEY = "sandbox_bn8fp75g_f38w7q9kcr3zcspd";
 
@@ -30,14 +32,14 @@ public class Settings {
         return sSharedPreferences;
     }
 
-    public static int getEnvironment(Context context) {
-        return getPreferences(context).getInt(ENVIRONMENT, 0);
+    public static String getEnvironment(Context context) {
+        return getPreferences(context).getString(ENVIRONMENT, "sandbox");
     }
 
-    public static void setEnvironment(Context context, int environment) {
+    public static void setEnvironment(Context context, String environment) {
         getPreferences(context)
                 .edit()
-                .putInt(ENVIRONMENT, environment)
+                .putString(ENVIRONMENT, environment)
                 .apply();
 
         DemoApplication.resetApiClient();
@@ -48,10 +50,12 @@ public class Settings {
     }
 
     public static String getEnvironmentUrl(Context context) {
-        int environment = getEnvironment(context);
-        if (environment == 0) {
+        String environment = getEnvironment(context);
+        if ("sandbox".equals(environment)) {
             return SANDBOX_BASE_SERVER_URL;
-        } else if (environment == 1) {
+        } else if ("sandbox-india".equals(environment)) {
+            return SANDBOX_INDIA_BASE_SERVER_URL;
+        } else if ("production".equals(environment)) {
             return PRODUCTION_BASE_SERVER_URL;
         } else {
             return "";
@@ -71,7 +75,7 @@ public class Settings {
     }
 
     public static String getThreeDSecureMerchantAccountId(Context context) {
-        if (isThreeDSecureEnabled(context) && getEnvironment(context) == 1) {
+        if (isThreeDSecureEnabled(context) && "production".equals(getEnvironment(context))) {
             return "test_AIB";
         } else {
             return null;
@@ -79,7 +83,7 @@ public class Settings {
     }
 
     public static String getUnionPayMerchantAccountId(Context context) {
-        if (getEnvironment(context) == 0) {
+        if ("sandbox".equals(getEnvironment(context))) {
             return "fake_switch_usd";
         } else {
             return null;
@@ -91,18 +95,21 @@ public class Settings {
     }
 
     public static String getTokenizationKey(Context context) {
-        int environment = getEnvironment(context);
-        if (environment == 1) {
-            return PRODUCTION_TOKENIZATION_KEY;
-        }
+        String environment = getEnvironment(context);
 
-        String type = getPreferences(context).getString("tokenization_key_type", "default_tokenization_key");
-        if (context.getString(R.string.local_payments_tokenization_key).equals(type)) {
-            return LOCAL_PAYMENTS_TOKENIZATION_KEY;
-        } else if (context.getString(R.string.paypal_two_factor_tokenization_key).equals(type)) {
+        if ("sandbox".equals(environment)) {
+            String type = getPreferences(context).getString("tokenization_key_type", "default_tokenization_key");
+            if (context.getString(R.string.local_payments_tokenization_key).equals(type)) {
+                return LOCAL_PAYMENTS_TOKENIZATION_KEY;
+            } else {
+                return SANDBOX_TOKENIZATION_KEY;
+            }
+        } else if ("sandbox-india".equals(environment)) {
             return PAYPAL_2FA_TOKENIZATION_KEY;
+        } else if ("production".equals(environment)) {
+            return PRODUCTION_TOKENIZATION_KEY;
         } else {
-            return SANDBOX_TOKENIZATION_KEY;
+            return null;
         }
     }
 

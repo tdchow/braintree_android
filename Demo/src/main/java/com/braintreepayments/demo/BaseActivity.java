@@ -32,6 +32,9 @@ import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.braintreepayments.demo.models.ClientToken;
 import com.paypal.android.sdk.onetouch.core.PayPalOneTouchCore;
 
+import java.util.Arrays;
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -231,13 +234,16 @@ public abstract class BaseActivity extends AppCompatActivity implements OnReques
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.environments,
                 android.R.layout.simple_spinner_dropdown_item);
         actionBar.setListNavigationCallbacks(adapter, this);
-        actionBar.setSelectedNavigationItem(Settings.getEnvironment(this));
+
+        List<String> envs = Arrays.asList(getResources().getStringArray(R.array.environments));
+        actionBar.setSelectedNavigationItem(envs.indexOf(Settings.getEnvironment(this)));
     }
 
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        if (Settings.getEnvironment(this) != itemPosition) {
-            Settings.setEnvironment(this, itemPosition);
+        String env = getResources().getStringArray(R.array.environments)[itemPosition];
+        if (!Settings.getEnvironment(this).equals(env)) {
+            Settings.setEnvironment(this, env);
             performReset();
         }
         return true;
