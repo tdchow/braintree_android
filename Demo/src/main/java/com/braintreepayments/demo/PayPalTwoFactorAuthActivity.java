@@ -28,7 +28,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-// TODO This demo won't work with current Braintree sample merchant server until the account is updated to support PayPalTwoFactorAuth.
 public class PayPalTwoFactorAuthActivity extends BaseActivity implements TextWatcher {
 
     private EditText mAmountEditText;
