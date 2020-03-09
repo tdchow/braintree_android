@@ -34,14 +34,13 @@ public class LocalPaymentsActivity extends BaseActivity implements PaymentMethod
 
     @Override
     protected void onAuthorizationFetched() {
-        if (!mAuthorization.equals(Settings.LOCAL_PAYMENTS_TOKENIZATION_KEY)) {
-            Exception error = new Exception("Select the Local Payments tokenization key in Settings");
-            onError(error);
+        if (!"Sandbox".equals(Settings.getEnvironment(this))) {
+            onError(new Exception("To use this feature, enable the \"Sandbox\" environment."));
             return;
         }
 
         try {
-            mBraintreeFragment = BraintreeFragment.newInstance(this, mAuthorization);
+            mBraintreeFragment = BraintreeFragment.newInstance(this, Settings.getLocalPaymentsTokenizationKey(this));
             mIdealButton.setEnabled(true);
         } catch (InvalidArgumentException e) {
             onError(e);

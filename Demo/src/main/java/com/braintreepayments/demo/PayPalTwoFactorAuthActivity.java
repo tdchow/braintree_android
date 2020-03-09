@@ -96,9 +96,8 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity implements TextWat
     @Override
     protected void onAuthorizationFetched() {
         try {
-            if (!mAuthorization.equals(Settings.PAYPAL_2FA_TOKENIZATION_KEY)) {
-                Exception error = new Exception("Select the PayPal 2FA tokenization key in Settings");
-                onError(error);
+            if (!"Sandbox India".equals(Settings.getEnvironment(this))) {
+                onError(new Exception("To use feature, enable the \"Sandbox India\" environment."));
                 return;
             }
 

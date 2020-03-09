@@ -6,16 +6,9 @@
 
         <CheckBoxPreference
             android:key="tokenization_key"
-            android:title="@string/use_tokenization_key"
-            android:summary="@string/use_tokenization_key_summary"
-            android:defaultValue="false" />
-
-        <ListPreference
-            android:key="tokenization_key_type"
             android:title="@string/tokenization_key"
-            android:entries="@array/tokenization_keys"
-            android:entryValues="@array/tokenization_keys"
-            android:defaultValue="@string/default_tokenization_key" />
+            android:summary="@string/tokenization_key_summary"
+            android:defaultValue="false" />
 
     </PreferenceCategory>
 

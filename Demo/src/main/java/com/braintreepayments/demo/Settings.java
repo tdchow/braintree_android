@@ -51,11 +51,11 @@ public class Settings {
 
     public static String getEnvironmentUrl(Context context) {
         String environment = getEnvironment(context);
-        if ("sandbox".equals(environment)) {
+        if ("Sandbox".equals(environment)) {
             return SANDBOX_BASE_SERVER_URL;
-        } else if ("sandbox-india".equals(environment)) {
+        } else if ("Sandbox India".equals(environment)) {
             return SANDBOX_INDIA_BASE_SERVER_URL;
-        } else if ("production".equals(environment)) {
+        } else if ("Production".equals(environment)) {
             return PRODUCTION_BASE_SERVER_URL;
         } else {
             return "";
@@ -97,17 +97,22 @@ public class Settings {
     public static String getTokenizationKey(Context context) {
         String environment = getEnvironment(context);
 
-        if ("sandbox".equals(environment)) {
-            String type = getPreferences(context).getString("tokenization_key_type", "default_tokenization_key");
-            if (context.getString(R.string.local_payments_tokenization_key).equals(type)) {
-                return LOCAL_PAYMENTS_TOKENIZATION_KEY;
-            } else {
-                return SANDBOX_TOKENIZATION_KEY;
-            }
-        } else if ("sandbox-india".equals(environment)) {
+        if ("Sandbox".equals(environment)) {
+            return SANDBOX_TOKENIZATION_KEY;
+        } else if ("Sandbox India".equals(environment)) {
             return PAYPAL_2FA_TOKENIZATION_KEY;
         } else if ("production".equals(environment)) {
             return PRODUCTION_TOKENIZATION_KEY;
+        } else {
+            return null;
+        }
+    }
+
+    public static String getLocalPaymentsTokenizationKey(Context context) {
+        String environment = getEnvironment(context);
+
+        if ("Sandbox".equals(environment)) {
+            return LOCAL_PAYMENTS_TOKENIZATION_KEY;
         } else {
             return null;
         }
