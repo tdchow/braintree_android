@@ -16,6 +16,7 @@ import com.braintreepayments.api.PayPal;
 import com.braintreepayments.api.PayPalTwoFactorAuth;
 import com.braintreepayments.api.exceptions.InvalidArgumentException;
 import com.braintreepayments.api.interfaces.PayPalTwoFactorAuthCallback;
+import com.braintreepayments.api.models.PayPalAccountNonce;
 import com.braintreepayments.api.models.PayPalProductAttributes;
 import com.braintreepayments.api.models.PayPalRequest;
 import com.braintreepayments.api.models.PayPalTwoFactorAuthRequest;
@@ -146,12 +147,16 @@ public class PayPalTwoFactorAuthActivity extends BaseActivity implements TextWat
         PayPalTwoFactorAuth.performTwoFactorLookup(mBraintreeFragment, request, new PayPalTwoFactorAuthCallback() {
             @Override
             public void onLookupResult(@NonNull PaymentMethodNonce nonce) {
-                PayPalTwoFactorAuth.continueTwoFactorAuthentication(mBraintreeFragment, nonce);
+                PayPalAccountNonce paypalAccountNonce = (PayPalAccountNonce)nonce;
+                if (paypalAccountNonce.isTwoFactorAuthRequired()) {
+                    PayPalTwoFactorAuth.continueTwoFactorAuthentication(mBraintreeFragment, paypalAccountNonce);
+                } else {
+                    // No authentication required; send nonce to server to transact
+                }
             }
 
             @Override
             public void onLookupFailure(@NonNull Exception exception) {
-                // notify error
                 onError(exception);
             }
         });
