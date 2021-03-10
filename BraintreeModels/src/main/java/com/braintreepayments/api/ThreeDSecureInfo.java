@@ -205,15 +205,6 @@ public class ThreeDSecureInfo implements Parcelable {
     }
 
     /**
-     * @deprecated Use {@link #getErrorMessage()},  {@link #isLiabilityShifted()}, and {@link #isLiabilityShiftPossible()}
-     * to determine the result of the challenge authentication
-     * @return The {@link ThreeDSecureAuthenticationResponse} if one is associated with a nonce.
-     */
-    public ThreeDSecureAuthenticationResponse getThreeDSecureAuthenticationResponse() {
-        return mThreeDSecureAuthenticationResponse;
-    }
-
-    /**
      * @return On authentication, the transaction status result identifier.
      */
     public String getAuthenticationTransactionStatus() {

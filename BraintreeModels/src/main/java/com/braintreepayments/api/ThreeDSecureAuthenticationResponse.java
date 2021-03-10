@@ -94,30 +94,6 @@ public class ThreeDSecureAuthenticationResponse implements Parcelable {
     }
 
     /**
-     * @deprecated ThreeDSecure WebView flow is deprecated. Use the browser-switch flow.
-     * {@see https://developers.braintreepayments.com/guides/3d-secure/client-side/android/v2}
-     */
-    @Deprecated
-    public static ThreeDSecureAuthenticationResponse fromException(String exception) {
-        ThreeDSecureAuthenticationResponse authenticationResponse = new ThreeDSecureAuthenticationResponse();
-
-        authenticationResponse.mSuccess = false;
-        authenticationResponse.mException = exception;
-
-        return authenticationResponse;
-    }
-
-    /**
-     * @deprecated Use {@link ThreeDSecureInfo#isLiabilityShifted()} and
-     * {@link ThreeDSecureInfo#isLiabilityShiftPossible()} to determine state of 3D Secure authentication
-     * @return If the authentication was completed
-     */
-    @Deprecated
-    public boolean isSuccess() {
-        return mSuccess;
-    }
-
-    /**
      * @return The {@link CardNonce} associated with the 3D Secure
      * authentication
      */
@@ -126,12 +102,9 @@ public class ThreeDSecureAuthenticationResponse implements Parcelable {
     }
 
     /**
-     * @deprecated Use {@link ThreeDSecureInfo#getErrorMessage()}
      * @return Possible errors that occurred during the authentication
      */
-    @Deprecated
-    public String getErrors() {
-        // NEXT_MAJOR_VERSION make this a private method
+    String getErrors() {
         return mErrors;
     }
 
