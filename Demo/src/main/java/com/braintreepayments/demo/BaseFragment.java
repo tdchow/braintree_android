@@ -3,6 +3,7 @@ package com.braintreepayments.demo;
 import android.util.Log;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -44,6 +45,13 @@ public abstract class BaseFragment extends Fragment {
         DemoActivity demoActivity = getDemoActivity();
         if (demoActivity != null) {
             demoActivity.showDialog(message);
+        }
+    }
+
+    protected void getAuthorization(AuthorizationCallback callback) {
+        DemoActivity demoActivity = getDemoActivity();
+        if (demoActivity != null) {
+            demoActivity.getAuthorization(callback);
         }
     }
 

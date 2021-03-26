@@ -134,13 +134,15 @@ public class CardFragment extends BaseFragment implements OnCardFormSubmitListen
     }
 
     private void initializeFeatureClients(InitializeFeatureClientsCallback callback) {
+
         getBraintreeClient(braintreeClient -> {
             final AppCompatActivity activity = (AppCompatActivity) getActivity();
             americanExpressClient = new AmericanExpressClient(braintreeClient);
             cardClient = new CardClient(braintreeClient);
-            threeDSecureClient = new ThreeDSecureClient(braintreeClient);
             unionPayClient = new UnionPayClient(braintreeClient);
             dataCollector = new DataCollector(braintreeClient);
+
+            threeDSecureClient = new ThreeDSecureClient(braintreeClient.getAuthorization(), CardFragment.this);
 
             mPurchaseButton.setEnabled(true);
 

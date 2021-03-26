@@ -4,11 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.ActivityResultRegistry;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 
+import com.cardinalcommerce.cardinalmobilesdk.Cardinal;
 import com.cardinalcommerce.cardinalmobilesdk.models.ValidateResponse;
 
 import org.json.JSONException;
@@ -31,16 +39,32 @@ public class ThreeDSecureClient {
     private final CardinalClient cardinalClient;
     private final BraintreeClient braintreeClient;
     private final ThreeDSecureV1BrowserSwitchHelper browserSwitchHelper;
+    private final ActivityResultLauncher<ThreeDSecureResult> activityResultLauncher;
 
-    public ThreeDSecureClient(BraintreeClient braintreeClient) {
-        this(braintreeClient, new CardinalClient(), new ThreeDSecureV1BrowserSwitchHelper());
+    private static ActivityResultLauncher<ThreeDSecureResult> createActivityLauncher(Fragment fragment) {
+        ActivityResultRegistry registry = fragment.requireActivity().getActivityResultRegistry();
+        return registry.register("cardinalThreeDSecure", fragment.requireActivity(), new CardinalActivityResultContract(), new ActivityResultCallback<CardinalActivityResult>() {
+            @Override
+            public void onActivityResult(CardinalActivityResult result) {
+                Log.d("RESULT", result.toString());
+            }
+        });
+    }
+
+    public ThreeDSecureClient(Authorization authorization, Fragment fragment) {
+        this(new BraintreeClient(authorization, fragment.requireActivity()) , createActivityLauncher(fragment));
+    }
+
+    public ThreeDSecureClient(BraintreeClient braintreeClient, ActivityResultLauncher<ThreeDSecureResult> activityResultLauncher) {
+        this(braintreeClient, new CardinalClient(), new ThreeDSecureV1BrowserSwitchHelper(), activityResultLauncher);
     }
 
     @VisibleForTesting
-    ThreeDSecureClient(BraintreeClient braintreeClient, CardinalClient cardinalClient, ThreeDSecureV1BrowserSwitchHelper browserSwitchHelper) {
+    ThreeDSecureClient(BraintreeClient braintreeClient, CardinalClient cardinalClient, ThreeDSecureV1BrowserSwitchHelper browserSwitchHelper, ActivityResultLauncher<ThreeDSecureResult> activityResultLauncher) {
         this.cardinalClient = cardinalClient;
         this.braintreeClient = braintreeClient;
         this.browserSwitchHelper = browserSwitchHelper;
+        this.activityResultLauncher = activityResultLauncher;
     }
 
     /**
@@ -252,13 +276,15 @@ public class ThreeDSecureClient {
         // perform cardinal authentication
         braintreeClient.sendAnalyticsEvent("three-d-secure.verification-flow.started");
 
-        Bundle extras = new Bundle();
-        extras.putParcelable(ThreeDSecureActivity.EXTRA_THREE_D_SECURE_RESULT, result);
+//        Bundle extras = new Bundle();
+//        extras.putParcelable(ThreeDSecureActivity.EXTRA_THREE_D_SECURE_RESULT, result);
+//
+//        Intent intent = new Intent(activity, ThreeDSecureActivity.class);
+//        intent.putExtras(extras);
+//
+//        activity.startActivityForResult(intent, THREE_D_SECURE);
 
-        Intent intent = new Intent(activity, ThreeDSecureActivity.class);
-        intent.putExtras(extras);
-
-        activity.startActivityForResult(intent, THREE_D_SECURE);
+        activityResultLauncher.launch(result);
     }
 
     private void notify3DSComplete(ThreeDSecureResult result, ThreeDSecureResultCallback callback) {

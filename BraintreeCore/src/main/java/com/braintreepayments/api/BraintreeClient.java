@@ -186,7 +186,7 @@ public class BraintreeClient {
         return configuration != null && configuration.isAnalyticsEnabled();
     }
 
-    Authorization getAuthorization() {
+    public Authorization getAuthorization() {
         return authorization;
     }
 }

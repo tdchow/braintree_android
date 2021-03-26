@@ -42,6 +42,9 @@ public class DemoActivity extends AppCompatActivity implements ActivityCompat.On
     private static final String EXTRA_AUTHORIZATION = "com.braintreepayments.demo.EXTRA_AUTHORIZATION";
     private static final String EXTRA_CUSTOMER_ID = "com.braintreepayments.demo.EXTRA_CUSTOMER_ID";
 
+    private final ThreeDSecureClient threeDSecureClient
+        = new BraintreeClient(this, new BraintreeClientTokenProvider());
+
     private BraintreeClient braintreeClient;
     private DemoAuthorizationProvider authProvider;
 
@@ -86,15 +89,10 @@ public class DemoActivity extends AppCompatActivity implements ActivityCompat.On
         handleBrowserSwitchResultIfNecessary();
     }
 
-    public void getBraintreeClient(BraintreeClientCallback callback) {
-        if (braintreeClient != null) {
-            callback.onResult(braintreeClient);
-            return;
-        }
+    public void getAuthorization(AuthorizationCallback callback) {
         if (mAuthorization != null) {
             try {
-                braintreeClient = new BraintreeClient(Authorization.fromString(mAuthorization), this);
-                callback.onResult(braintreeClient);
+                callback.onResult(Authorization.fromString(mAuthorization));
             } catch (InvalidArgumentException e) {
                 showDialog(e.getMessage());
             }
@@ -105,13 +103,28 @@ public class DemoActivity extends AppCompatActivity implements ActivityCompat.On
             if (authorization != null) {
                 mAuthorization = authorization;
                 try {
-                    braintreeClient = new BraintreeClient(Authorization.fromString(mAuthorization), DemoActivity.this);
-                    callback.onResult(braintreeClient);
+                    callback.onResult(Authorization.fromString(mAuthorization));
                 } catch (InvalidArgumentException e) {
                     showDialog(e.getMessage());
                 }
             } else if (error != null) {
                 showDialog(error.getMessage());
+            }
+        });
+    }
+
+    public void getBraintreeClient(BraintreeClientCallback callback) {
+        if (braintreeClient != null) {
+            callback.onResult(braintreeClient);
+            return;
+        }
+
+        getAuthorization(authorization -> {
+            try {
+                braintreeClient = new BraintreeClient(Authorization.fromString(mAuthorization), DemoActivity.this);
+                callback.onResult(braintreeClient);
+            } catch (InvalidArgumentException e) {
+                showDialog(e.getMessage());
             }
         });
     }
