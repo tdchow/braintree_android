@@ -96,7 +96,7 @@ public class VisaCheckoutClient {
      * @param visaPaymentSummary {@link VisaPaymentSummary} The Visa payment to tokenize.
      * @param callback {@link VisaCheckoutTokenizeCallback}
      */
-    public void tokenize(VisaPaymentSummary visaPaymentSummary, final VisaCheckoutTokenizeCallback callback) {
+    public void tokenize(VisaCheckoutPaymentSummary visaPaymentSummary, final VisaCheckoutTokenizeCallback callback) {
         tokenizationClient.tokenizeREST(new VisaCheckoutAccount(visaPaymentSummary), new TokenizeCallback() {
             @Override
             public void onResult(JSONObject tokenizationResponse, Exception exception) {

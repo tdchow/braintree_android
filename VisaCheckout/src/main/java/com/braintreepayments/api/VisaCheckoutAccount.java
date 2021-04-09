@@ -1,14 +1,12 @@
 package com.braintreepayments.api;
 
-import com.visa.checkout.VisaPaymentSummary;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Use to construct a Visa Checkout tokenization request.
  */
-class VisaCheckoutAccount extends PaymentMethod {
+public class VisaCheckoutAccount extends PaymentMethod {
     private static final String CALL_ID = "callId";
     private static final String ENCRYPTED_KEY = "encryptedKey";
     private static final String ENCRYPTED_PAYMENT_DATA = "encryptedPaymentData";
@@ -21,14 +19,14 @@ class VisaCheckoutAccount extends PaymentMethod {
     /**
      * @param visaPaymentSummary returned from Visa Checkout after a successful payment.
      */
-    VisaCheckoutAccount(VisaPaymentSummary visaPaymentSummary) {
+    VisaCheckoutAccount(VisaCheckoutPaymentSummary visaPaymentSummary) {
         if (visaPaymentSummary == null) {
             return;
         }
 
         callId = visaPaymentSummary.getCallId();
-        encryptedKey = visaPaymentSummary.getEncKey();
-        encryptedPaymentData = visaPaymentSummary.getEncPaymentData();
+        encryptedKey = visaPaymentSummary.getEncryptedKey();
+        encryptedPaymentData = visaPaymentSummary.getEncryptedPaymentData();
     }
 
     @Override
