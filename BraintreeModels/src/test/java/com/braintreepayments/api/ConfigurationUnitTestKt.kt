@@ -6,6 +6,34 @@ import org.junit.Test
 class ConfigurationUnitTestKt {
 
     @Test
+    fun analyticsUrl_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "analyticsUrl": "https://analytics.com" }"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("https://analytics.com", sut.analyticsUrl)
+    }
+
+    @Test
+    fun analyticsUrl_whenPropertyDoesNotExist_returnsNull() {
+        val sut = Configuration.fromJson("")
+        assertNull(sut.analyticsUrl)
+    }
+
+    @Test
+    fun isAnalyticsEnabled_whenAnalyticsUrlIsPresent_returnsItsValue() {
+        // language=JSON
+        val json = """{ "analyticsUrl": "https://analytics.com" }"""
+        val sut = Configuration.fromJson(json)
+        assertTrue(sut.isAnalyticsEnabled)
+    }
+
+    @Test
+    fun isAnalyticsEnabled_whenAnalyticsUrlDoesNotExist_returnsFalse() {
+        val sut = Configuration.fromJson("")
+        assertFalse(sut.isAnalyticsEnabled)
+    }
+
+    @Test
     fun isPayPalEnabled_whenPropertyExists_returnsItsValue() {
         // language=JSON
         val json = """{ "paypalEnabled": true }"""
