@@ -2,7 +2,10 @@ package com.braintreepayments.api
 
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class ConfigurationUnitTestKt {
 
     @Test
@@ -15,7 +18,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun graphQLUrl_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.graphQLUrl)
     }
 
@@ -38,42 +41,47 @@ class ConfigurationUnitTestKt {
     @Test
     fun isGraphQLFeatureEnabled_whenFeatureExistsInGraphQLConfig_returnsTrue() {
         // language=JSON
-        val json = """{ "graphQL": { "features":  [ "a-feature" ] }}"""
+        val json = """{
+            "graphQL": {
+                "url":  "https://graphql.com",
+                "features":  [ "a-feature" ]
+            }
+        }"""
         val sut = Configuration.fromJson(json)
         assertTrue(sut.isGraphQLFeatureEnabled("a-feature"))
     }
 
     @Test
     fun isGraphQLFeatureEnabled_whenFeatureNotPresentInGraphQLConfig_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertFalse(sut.isGraphQLFeatureEnabled("a-feature"))
     }
 
     @Test
     fun analyticsUrl_whenPropertyExists_returnsItsValue() {
         // language=JSON
-        val json = """{ "analyticsUrl": "https://analytics.com" }"""
+        val json = """{ "analytics": { "url": "https://analytics.com" }}"""
         val sut = Configuration.fromJson(json)
         assertEquals("https://analytics.com", sut.analyticsUrl)
     }
 
     @Test
     fun analyticsUrl_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.analyticsUrl)
     }
 
     @Test
     fun isAnalyticsEnabled_whenAnalyticsUrlIsPresent_returnsItsValue() {
         // language=JSON
-        val json = """{ "analyticsUrl": "https://analytics.com" }"""
+        val json = """{ "analytics": { "url": "https://analytics.com" }}"""
         val sut = Configuration.fromJson(json)
         assertTrue(sut.isAnalyticsEnabled)
     }
 
     @Test
     fun isAnalyticsEnabled_whenAnalyticsUrlDoesNotExist_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertFalse(sut.isAnalyticsEnabled)
     }
 
@@ -87,7 +95,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun isFraudDataCollectionEnabled_whenPropertyDoesNotExist_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertFalse(sut.isFraudDataCollectionEnabled)
     }
 
@@ -108,28 +116,28 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun supportedCardTypes_whenPropertyDoesNotExist_returnsEmptyList() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals(emptyList<String>(), sut.supportedCardTypes)
     }
 
     @Test
     fun kountMerchantId_whenPropertyExists_returnsItsValue() {
         // language=JSON
-        val json = """{ "kount": { "kountMerchantid": "kount-merchant-id" }}"""
+        val json = """{ "kount": { "kountMerchantId": "kount-merchant-id" }}"""
         val sut = Configuration.fromJson(json)
         assertEquals("kount-merchant-id", sut.kountMerchantId)
     }
 
     @Test
     fun kountMerchantId_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.kountMerchantId)
     }
 
     @Test
     fun isKountEnabled_whenKountMerchantIdExists_returnsTrue() {
         // language=JSON
-        val json = """{ "kount": { "kountMerchantid": "kount-merchant-id" }}"""
+        val json = """{ "kount": { "kountMerchantId": "kount-merchant-id" }}"""
         val sut = Configuration.fromJson(json)
         assertTrue(sut.isKountEnabled)
     }
@@ -152,7 +160,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun samsungPayAuthorization_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.samsungPayAuthorization)
     }
 
@@ -182,7 +190,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun samsungPayMerchantDisplayName_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.samsungPayMerchantDisplayName)
     }
 
@@ -191,13 +199,13 @@ class ConfigurationUnitTestKt {
         // language=JSON
         val json = """{ "samsungPay": { "serviceId": "samsung-service-id" }}"""
         val sut = Configuration.fromJson(json)
-        assertEquals("samsung-service-id", sut.samsungPayMerchantDisplayName)
+        assertEquals("samsung-service-id", sut.samsungPayServiceId)
     }
 
     @Test
     fun samsungPayServiceId_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
-        assertEquals("", sut.samsungPayMerchantDisplayName)
+        val sut = Configuration.fromJson("{}")
+        assertEquals("", sut.samsungPayServiceId)
     }
 
     @Test
@@ -210,7 +218,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun samsungPayEnvironment_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.samsungPayEnvironment)
     }
 
@@ -239,7 +247,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun samsungPaySupportedCardBrands_whenPropertyDoesNotExist_returnsEmptyList() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals(emptyList<String>(), sut.samsungPaySupportedCardBrands)
     }
 
@@ -253,7 +261,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun isPayPalEnabled_whenPropertyDoesNotExist_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertFalse(sut.isPayPalEnabled)
     }
 
@@ -267,7 +275,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun payPalDisplayName_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.payPalDisplayName)
     }
 
@@ -276,12 +284,12 @@ class ConfigurationUnitTestKt {
         // language=JSON
         val json = """{ "paypal": { "clientId": "paypayl-client-id" }}"""
         val sut = Configuration.fromJson(json)
-        assertEquals("paypayl-client-id", sut.payPalDisplayName)
+        assertEquals("paypayl-client-id", sut.payPalClientId)
     }
 
     @Test
     fun payPalClientId_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.payPalClientId)
     }
 
@@ -295,7 +303,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun payPalPrivacyUrl_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.payPalPrivacyUrl)
     }
 
@@ -309,7 +317,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun payPalUserAgreement_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.payPalUserAgreementUrl)
     }
 
@@ -318,12 +326,12 @@ class ConfigurationUnitTestKt {
         // language=JSON
         val json = """{ "paypal": { "directBaseUrl": "https://paypal.direct-base-url.com" }}"""
         val sut = Configuration.fromJson(json)
-        assertEquals("https://paypal.direct-base-url.com", sut.payPalUserAgreementUrl)
+        assertEquals("https://paypal.direct-base-url.com", sut.payPalDirectBaseUrl)
     }
 
     @Test
     fun payPalDirectBaseUrl_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.payPalDirectBaseUrl)
     }
 
@@ -337,7 +345,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun payPalEnvironment_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.payPalEnvironment)
     }
 
@@ -351,21 +359,21 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun payPalCurrencyIsoCode_whenPropertyDoesNotExist_returnsNull() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertNull(sut.payPalCurrencyIsoCode)
     }
 
     @Test
     fun isPayPalTouchDisabled_whenPropertyExists_returnsItsValue() {
         // language=JSON
-        val json = """{ "paypal": { "touchDisabled": "touch-disabled" }}"""
+        val json = """{ "paypal": { "touchDisabled": true }}"""
         val sut = Configuration.fromJson(json)
-        assertEquals("touch-disabled", sut.isPayPalTouchDisabled)
+        assertTrue(sut.isPayPalTouchDisabled)
     }
 
     @Test
     fun isPayPalTouchDisabled_whenPropertyDoesNotExist_returnsTrue() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertTrue(sut.isPayPalTouchDisabled)
     }
 
@@ -379,7 +387,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun visaCheckoutApiKey_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.visaCheckoutApiKey)
     }
 
@@ -409,12 +417,12 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun visaCheckoutExternalClientId_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.visaCheckoutExternalClientId)
     }
 
     @Test
-    fun visaCheckoutAcceptedCardBrands_whenPropertyExists_returnsListOfAcceptedCardBrands() {
+    fun visaCheckoutSupportedNetworks_whenPropertyExists_returnsListOfAcceptedCardBrands() {
         // language=JSON
         val json = """{
             "visaCheckout": {
@@ -426,8 +434,8 @@ class ConfigurationUnitTestKt {
     }
 
     @Test
-    fun visaCheckoutAcceptedCardBrands_whenPropertyDoesNotExist_returnsEmptyList() {
-        val sut = Configuration.fromJson("")
+    fun visaCheckoutSupportedNetworks_whenPropertyDoesNotExist_returnsEmptyList() {
+        val sut = Configuration.fromJson("{}")
         assertEquals(emptyList<String>(), sut.visaCheckoutSupportedNetworks)
     }
 
@@ -436,13 +444,13 @@ class ConfigurationUnitTestKt {
         // language=JSON
         val json = """{ "payWithVenmo": { "accessToken": "venmo-access-token" }}"""
         val sut = Configuration.fromJson(json)
-        assertEquals("venmo-access-token", sut.visaCheckoutExternalClientId)
+        assertEquals("venmo-access-token", sut.venmoAccessToken)
     }
 
     @Test
     fun venmoAccessToken_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
-        assertEquals("", sut.visaCheckoutExternalClientId)
+        val sut = Configuration.fromJson("{}")
+        assertEquals("", sut.venmoAccessToken)
     }
 
     @Test
@@ -471,7 +479,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun venmoEnvironment_whenPropertyDoesNotExist_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.venmoEnvironment)
     }
 
@@ -485,7 +493,7 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun venmoMerchantId_whenPropertyDoesNotExist_returnsEmptyString() {
-        val sut = Configuration.fromJson("")
+        val sut = Configuration.fromJson("{}")
         assertEquals("", sut.venmoMerchantId)
     }
 }

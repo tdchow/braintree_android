@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class Configuration {
      * @return The url of the Braintree client API for the current environment.
      */
     public String getClientApiUrl() {
-        return json.getString("$.clientApiUrl");
+        return json.getString("$.clientApiUrl", "");
     }
 
     /**
@@ -152,7 +151,7 @@ public class Configuration {
      * @return The current environment.
      */
     public String getEnvironment() {
-        return json.getString("$.environment");
+        return json.getString("$.environment", "");
     }
 
     /**
@@ -273,7 +272,7 @@ public class Configuration {
      * @return the current Braintree merchant id.
      */
     public String getMerchantId() {
-        return json.getString("$.merchantId");
+        return json.getString("$.merchantId", "");
     }
 
     /**
@@ -334,7 +333,7 @@ public class Configuration {
      * @return {@code true} if GraphQL is enabled and the feature is enabled, {@code false} otherwise.
      */
     boolean isGraphQLFeatureEnabled(String feature) {
-        List<String> enabledFeatures = json.getStrings("$.graphQL.features", emptyList());
+        List<String> enabledFeatures = json.getStrings("$.graphQL.features[*]", emptyList());
         return isGraphQLEnabled() && enabledFeatures.contains(feature);
     }
 
