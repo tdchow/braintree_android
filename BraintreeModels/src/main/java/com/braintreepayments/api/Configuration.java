@@ -387,14 +387,6 @@ public class Configuration {
         return json.getString("$.samsungPay.environment", "");
     }
 
-    private void parseJsonChallenges(JSONArray jsonArray) {
-        if (jsonArray != null) {
-            for (int i = 0; i < jsonArray.length(); i++) {
-                challenges.add(jsonArray.optString(i, ""));
-            }
-        }
-    }
-
     /**
      * @return the JWT for Cardinal
      */

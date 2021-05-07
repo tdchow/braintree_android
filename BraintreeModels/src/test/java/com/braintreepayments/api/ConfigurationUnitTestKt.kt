@@ -97,6 +97,105 @@ class ConfigurationUnitTestKt {
     }
 
     @Test
+    fun samsungPayAuthorization_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "samsungPay": { "samsungAuthorization": "samsung-authorization" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("samsung-authorization", sut.samsungPayAuthorization)
+    }
+
+    @Test
+    fun samsungPayAuthorization_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.samsungPayAuthorization)
+    }
+
+    @Test
+    fun isSamsungPayEnabled_whenSamsungPayAuthorizationExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "samsungPay": { "samsungAuthorization": "samsung-authorization" }}"""
+        val sut = Configuration.fromJson(json)
+        assertTrue(sut.isSamsungPayEnabled)
+    }
+
+    @Test
+    fun samsungPayAuthorization_whenSamsungPayAuthorizationIsEmpty_returnsFalse() {
+        val sut = Configuration.fromJson("")
+        assertFalse(sut.isSamsungPayEnabled)
+    }
+
+    @Test
+    fun samsungPayMerchantDisplayName_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "samsungPay": { "displayName": "samsung-display-name" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("samsung-display-name", sut.samsungPayMerchantDisplayName)
+    }
+
+    @Test
+    fun samsungPayMerchantDisplayName_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.samsungPayMerchantDisplayName)
+    }
+
+    @Test
+    fun samsungPayServiceId_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "samsungPay": { "serviceId": "samsung-service-id" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("samsung-service-id", sut.samsungPayMerchantDisplayName)
+    }
+
+    @Test
+    fun samsungPayServiceId_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.samsungPayMerchantDisplayName)
+    }
+
+    @Test
+    fun samsungPayEnvironment_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "samsungPay": { "environment": "samsung-environment" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("samsung-environment", sut.samsungPayEnvironment)
+    }
+
+    @Test
+    fun samsungPayEnvironment_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.samsungPayEnvironment)
+    }
+
+    @Test
+    fun samsungPaySupportedCardBrands_whenPropertyExists_returnsListOfSupportedCardBrands() {
+        // language=JSON
+        val json = """{
+            "samsungPay": {
+                "supportedCardBrands": [
+                    "american_express",
+                    "diners",
+                    "discover",
+                    "jcb",
+                    "maestro",
+                    "mastercard",
+                    "visa"
+                ]
+            }
+        }"""
+        val sut = Configuration.fromJson(json)
+
+        val expectedCardBrands = listOf(
+                "american_express", "diners", "discover", "jcb", "maestro", "mastercard", "visa")
+        assertEquals(expectedCardBrands, sut.samsungPaySupportedCardBrands)
+    }
+
+    @Test
+    fun samsungPaySupportedCardBrands_whenPropertyDoesNotExist_returnsEmptyList() {
+        val sut = Configuration.fromJson("")
+        assertEquals(emptyList<String>(), sut.samsungPaySupportedCardBrands)
+    }
+
+    @Test
     fun isPayPalEnabled_whenPropertyExists_returnsItsValue() {
         // language=JSON
         val json = """{ "paypalEnabled": true }"""
