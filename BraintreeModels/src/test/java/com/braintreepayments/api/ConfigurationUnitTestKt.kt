@@ -29,7 +29,9 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun isGraphQLEnabled_whenGraphQLUrlIsEmpty_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        // language=JSON
+        val json = """{ "graphQL": { "url":  "" }}"""
+        val sut = Configuration.fromJson(json)
         assertFalse(sut.isGraphQLEnabled)
     }
 
@@ -134,7 +136,9 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun isKountEnabled_whenKountMerchantIdIsEmpty_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        // language=JSON
+        val json = """{ "kount": { "kountMerchantid": "" }}"""
+        val sut = Configuration.fromJson(json)
         assertFalse(sut.isKountEnabled)
     }
 
@@ -162,7 +166,9 @@ class ConfigurationUnitTestKt {
 
     @Test
     fun samsungPayAuthorization_whenSamsungPayAuthorizationIsEmpty_returnsFalse() {
-        val sut = Configuration.fromJson("")
+        // language=JSON
+        val json = """{ "samsungPay": { "samsungAuthorization": "" }}"""
+        val sut = Configuration.fromJson(json)
         assertFalse(sut.isSamsungPayEnabled)
     }
 
