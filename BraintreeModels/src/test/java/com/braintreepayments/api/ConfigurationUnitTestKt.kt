@@ -424,4 +424,62 @@ class ConfigurationUnitTestKt {
         val sut = Configuration.fromJson("")
         assertEquals(emptyList<String>(), sut.visaCheckoutSupportedNetworks)
     }
+
+    @Test
+    fun venmoAccessToken_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "payWithVenmo": { "accessToken": "venmo-access-token" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("venmo-access-token", sut.visaCheckoutExternalClientId)
+    }
+
+    @Test
+    fun venmoAccessToken_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.visaCheckoutExternalClientId)
+    }
+
+    @Test
+    fun isVenmoEnabled_whenAccessTokenIsPresent_returnsTrue() {
+        // language=JSON
+        val json = """{ "payWithVenmo": { "accessToken": "venmo-access-token" }}"""
+        val sut = Configuration.fromJson(json)
+        assertTrue(sut.isVenmoEnabled)
+    }
+
+    @Test
+    fun isVenmoEnabled_whenAccessTokenIsEmpty_returnsFalse() {
+        // language=JSON
+        val json = """{ "payWithVenmo": { "accessToken": "" }}"""
+        val sut = Configuration.fromJson(json)
+        assertFalse(sut.isVenmoEnabled)
+    }
+
+    @Test
+    fun venmoEnvironment_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "payWithVenmo": { "environment": "venmo-environment" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("venmo-environment", sut.venmoEnvironment)
+    }
+
+    @Test
+    fun venmoEnvironment_whenPropertyDoesNotExist_returnsFalse() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.venmoEnvironment)
+    }
+
+    @Test
+    fun venmoMerchantId_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "payWithVenmo": { "merchantId": "venmo-merchant-id" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("venmo-merchant-id", sut.venmoMerchantId)
+    }
+
+    @Test
+    fun venmoMerchantId_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.venmoMerchantId)
+    }
 }
