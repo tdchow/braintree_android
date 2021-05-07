@@ -34,6 +34,69 @@ class ConfigurationUnitTestKt {
     }
 
     @Test
+    fun isFraudDataCollectionEnabled_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "creditCards": { "collectDeviceData": true }}"""
+        val sut = Configuration.fromJson(json)
+        assertTrue(sut.isFraudDataCollectionEnabled)
+    }
+
+    @Test
+    fun isFraudDataCollectionEnabled_whenPropertyDoesNotExist_returnsFalse() {
+        val sut = Configuration.fromJson("")
+        assertFalse(sut.isFraudDataCollectionEnabled)
+    }
+
+    @Test
+    fun supportedCardTypes_whenPropertyExists_returnsListOfSupportedCards() {
+        // language=JSON
+        val json = """{
+            "creditCards": {
+              "supportedCardTypes": [ "American Express", "Discover", "JCB", "MasterCard", "Visa" ]
+            }
+        }"""
+        val sut = Configuration.fromJson(json)
+
+        val expectedSupportedCards =
+            listOf("American Express", "Discover", "JCB", "MasterCard", "Visa")
+        assertEquals(expectedSupportedCards, sut.supportedCardTypes)
+    }
+
+    @Test
+    fun supportedCardTypes_whenPropertyDoesNotExist_returnsEmptyList() {
+        val sut = Configuration.fromJson("")
+        assertEquals(emptyList<String>(), sut.supportedCardTypes)
+    }
+
+    @Test
+    fun kountMerchantId_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "kount": { "kountMerchantid": "kount-merchant-id" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("kount-merchant-id", sut.kountMerchantId)
+    }
+
+    @Test
+    fun kountMerchantId_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.kountMerchantId)
+    }
+
+    @Test
+    fun isKountEnabled_whenKountMerchantIdExists_returnsTrue() {
+        // language=JSON
+        val json = """{ "kount": { "kountMerchantid": "kount-merchant-id" }}"""
+        val sut = Configuration.fromJson(json)
+        assertTrue(sut.isKountEnabled)
+    }
+
+    @Test
+    fun isKountEnabled_whenKountMerchantIdIsEmpty_returnsFalse() {
+        val sut = Configuration.fromJson("")
+        assertFalse(sut.isKountEnabled)
+    }
+
+    @Test
     fun isPayPalEnabled_whenPropertyExists_returnsItsValue() {
         // language=JSON
         val json = """{ "paypalEnabled": true }"""
