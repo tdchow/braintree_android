@@ -6,6 +6,48 @@ import org.junit.Test
 class ConfigurationUnitTestKt {
 
     @Test
+    fun graphQLUrl_whenPropertyExists_returnsItsValue() {
+        // language=JSON
+        val json = """{ "graphQL": { "url":  "https://graphql.com" }}"""
+        val sut = Configuration.fromJson(json)
+        assertEquals("https://graphql.com", sut.graphQLUrl)
+    }
+
+    @Test
+    fun graphQLUrl_whenPropertyDoesNotExist_returnsEmptyString() {
+        val sut = Configuration.fromJson("")
+        assertEquals("", sut.graphQLUrl)
+    }
+
+    @Test
+    fun isGraphQLEnabled_whenGraphQLUrlExists_returnsTrue() {
+        // language=JSON
+        val json = """{ "graphQL": { "url":  "https://graphql.com" }}"""
+        val sut = Configuration.fromJson(json)
+        assertTrue(sut.isGraphQLEnabled)
+    }
+
+    @Test
+    fun isGraphQLEnabled_whenGraphQLUrlIsEmpty_returnsFalse() {
+        val sut = Configuration.fromJson("")
+        assertFalse(sut.isGraphQLEnabled)
+    }
+
+    @Test
+    fun isGraphQLFeatureEnabled_whenFeatureExistsInGraphQLConfig_returnsTrue() {
+        // language=JSON
+        val json = """{ "graphQL": { "features":  [ "a-feature" ] }}"""
+        val sut = Configuration.fromJson(json)
+        assertTrue(sut.isGraphQLFeatureEnabled("a-feature"))
+    }
+
+    @Test
+    fun isGraphQLFeatureEnabled_whenFeatureNotPresentInGraphQLConfig_returnsFalse() {
+        val sut = Configuration.fromJson("")
+        assertFalse(sut.isGraphQLFeatureEnabled("a-feature"))
+    }
+
+    @Test
     fun analyticsUrl_whenPropertyExists_returnsItsValue() {
         // language=JSON
         val json = """{ "analyticsUrl": "https://analytics.com" }"""
