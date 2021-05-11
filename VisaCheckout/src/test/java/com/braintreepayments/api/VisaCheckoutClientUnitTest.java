@@ -4,6 +4,7 @@ import com.visa.checkout.Environment;
 import com.visa.checkout.Profile.CardBrand;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 public class VisaCheckoutClientUnitTest {
 
-    private Configuration mConfigurationWithVisaCheckout;
+    private Configuration configurationWithVisaCheckout;
     private VisaCheckoutPaymentSummary visaCheckoutPaymentSummary;
     private ClassHelper classHelper;
 
@@ -166,6 +167,9 @@ public class VisaCheckoutClientUnitTest {
 
     @Test
     public void tokenize_whenSuccessful_postsVisaPaymentMethodNonce() throws JSONException {
+        VisaCheckoutNonce visaCheckoutNonce =
+                VisaCheckoutNonce.fromJSON(new JSONObject(Fixtures.PAYMENT_METHODS_VISA_CHECKOUT_RESPONSE));
+
         TokenizationClient tokenizationClient = new MockTokenizationClientBuilder()
                 .tokenizeRESTSuccess(new JSONObject(Fixtures.PAYMENT_METHODS_VISA_CHECKOUT_RESPONSE))
                 .build();
