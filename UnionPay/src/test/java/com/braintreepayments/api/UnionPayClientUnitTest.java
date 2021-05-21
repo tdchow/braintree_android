@@ -44,8 +44,8 @@ public class UnionPayClientUnitTest {
         braintreeClient = mock(BraintreeClient.class);
         tokenizationClient = mock(TokenizationClient.class);
 
-        unionPayEnabledConfiguration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_UNIONPAY);
-        unionPayDisabledConfiguration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        unionPayEnabledConfiguration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_UNIONPAY);
+        unionPayDisabledConfiguration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
 
         unionPayCard = mock(UnionPayCard.class);
         unionPayEnrollCallback = mock(UnionPayEnrollCallback.class);

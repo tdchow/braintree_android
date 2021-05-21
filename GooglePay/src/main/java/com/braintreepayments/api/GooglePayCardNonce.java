@@ -81,7 +81,7 @@ public class GooglePayCardNonce extends PaymentMethodNonce {
         PostalAddress billingAddress = postalAddressFromJson(billingAddressJson);
         PostalAddress shippingAddress = postalAddressFromJson(shippingAddressJson);
 
-        BinData binData = BinData.fromJson(inputJson.optJSONObject(BIN_DATA_KEY));
+        BinData binData = BinData.fromJSON(inputJson.optJSONObject(BIN_DATA_KEY));
         String lastTwo = details.getString(LAST_TWO_KEY);
         String lastFour = details.getString(LAST_FOUR_KEY);
         String cardType = details.getString(CARD_TYPE_KEY);

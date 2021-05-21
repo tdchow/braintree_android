@@ -25,7 +25,7 @@ class GraphQLConfiguration {
      * @return a {@link GraphQLConfiguration} instance with the data that was able to be parsed from the {@link
      * JSONObject}.
      */
-    static GraphQLConfiguration fromJson(JSONObject json) {
+    static GraphQLConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

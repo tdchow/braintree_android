@@ -15,7 +15,7 @@ class BraintreeApiConfiguration {
     private String accessToken;
     private String url;
 
-    static BraintreeApiConfiguration fromJson(JSONObject json) {
+    static BraintreeApiConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

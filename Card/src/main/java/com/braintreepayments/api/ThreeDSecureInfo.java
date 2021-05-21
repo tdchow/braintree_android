@@ -48,7 +48,7 @@ public class ThreeDSecureInfo implements Parcelable {
     private String lookupTransactionStatus;
     private String lookupTransactionStatusReason;
 
-    static ThreeDSecureInfo fromJson(JSONObject json) {
+    static ThreeDSecureInfo fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

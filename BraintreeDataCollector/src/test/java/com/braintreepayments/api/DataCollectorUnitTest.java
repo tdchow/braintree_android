@@ -43,7 +43,7 @@ public class DataCollectorUnitTest {
                 .kount(new TestKountConfigurationBuilder()
                         .kountMerchantId("600000"))
                 .buildConfiguration();
-        kountDisabledConfiguration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        kountDisabledConfiguration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
 
         context = mock(Context.class);
         payPalDataCollector = mock(PayPalDataCollector.class);
@@ -152,7 +152,7 @@ public class DataCollectorUnitTest {
 
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .authorization(Authorization.fromString(Fixtures.TOKENIZATION_KEY))
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_CARD_COLLECT_DEVICE_DATA))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_CARD_COLLECT_DEVICE_DATA))
                 .build();
 
         DataCollector sut = new DataCollector(
@@ -185,7 +185,7 @@ public class DataCollectorUnitTest {
 
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .authorization(Authorization.fromString(base64Encode(Fixtures.CLIENT_TOKEN_WITH_CUSTOMER_ID_IN_AUTHORIZATION_FINGERPRINT)))
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_CARD_COLLECT_DEVICE_DATA))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_CARD_COLLECT_DEVICE_DATA))
                 .build();
 
         DataCollector sut = new DataCollector(
@@ -215,7 +215,7 @@ public class DataCollectorUnitTest {
     @Test
     public void collectRiskData_whenFraudDetectionDisabled_doesNothing() throws JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN))
                 .build();
 
         DataCollector sut = new DataCollector(

@@ -28,7 +28,7 @@ public class VisaCheckoutUserDataUnitTest {
 
     @Test
     public void fromJson_whenValid_returnsPopulatedObject() {
-        VisaCheckoutUserData visaCheckoutUserData = VisaCheckoutUserData.fromJson(sampleUserData);
+        VisaCheckoutUserData visaCheckoutUserData = VisaCheckoutUserData.fromJSON(sampleUserData);
 
         assertEquals("userFirstName", visaCheckoutUserData.getUserFirstName());
         assertEquals("userLastName", visaCheckoutUserData.getUserLastName());
@@ -39,7 +39,7 @@ public class VisaCheckoutUserDataUnitTest {
 
     @Test
     public void fromJson_whenNull_returnsEmptyObject() {
-        VisaCheckoutUserData visaCheckoutUserData = VisaCheckoutUserData.fromJson(null);
+        VisaCheckoutUserData visaCheckoutUserData = VisaCheckoutUserData.fromJSON(null);
 
         assertEquals("", visaCheckoutUserData.getUserFirstName());
         assertEquals("", visaCheckoutUserData.getUserLastName());
@@ -50,7 +50,7 @@ public class VisaCheckoutUserDataUnitTest {
 
     @Test
     public void parcelsCorrectly() {
-        VisaCheckoutUserData visaCheckoutUserData = VisaCheckoutUserData.fromJson(sampleUserData);
+        VisaCheckoutUserData visaCheckoutUserData = VisaCheckoutUserData.fromJSON(sampleUserData);
 
         Parcel parcel = Parcel.obtain();
         visaCheckoutUserData.writeToParcel(parcel, 0);

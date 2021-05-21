@@ -16,7 +16,7 @@ public class VisaCheckoutUserData implements Parcelable {
     private String username;
     private String userEmail;
 
-    public static VisaCheckoutUserData fromJson(JSONObject json) {
+    public static VisaCheckoutUserData fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

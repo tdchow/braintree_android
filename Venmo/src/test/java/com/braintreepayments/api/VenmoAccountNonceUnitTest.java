@@ -18,7 +18,7 @@ public class VenmoAccountNonceUnitTest {
     private static final VenmoAccountNonce VENMO_NONCE = new VenmoAccountNonce(NONCE, USERNAME, false);
 
     @Test
-    public void fromJson_parsesResponse() throws JSONException {
+    public void fromJSON_parsesResponse() throws JSONException {
         VenmoAccountNonce venmoAccountNonce =
             VenmoAccountNonce.fromJSON(new JSONObject(Fixtures.PAYMENT_METHODS_VENMO_ACCOUNT_RESPONSE));
 

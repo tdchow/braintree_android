@@ -20,7 +20,7 @@ class AnalyticsConfiguration {
      * @return An {@link AnalyticsConfiguration} instance with data that was able to be parsed from
      *         the {@link JSONObject}.
      */
-    static AnalyticsConfiguration fromJson(JSONObject json) {
+    static AnalyticsConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

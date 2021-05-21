@@ -17,29 +17,29 @@ import static org.junit.Assert.assertFalse;
 public class GraphQLConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("url", "https://example.com/graphql")
                 .put("features", new JSONArray()
                         .put("tokenize_credit_cards")
                 );
-        GraphQLConfiguration sut = GraphQLConfiguration.fromJson(input);
+        GraphQLConfiguration sut = GraphQLConfiguration.fromJSON(input);
         assertTrue(sut.isEnabled());
         assertTrue(sut.isFeatureEnabled(Features.TOKENIZE_CREDIT_CARDS));
         assertEquals("https://example.com/graphql", sut.getUrl());
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-       GraphQLConfiguration sut = GraphQLConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+       GraphQLConfiguration sut = GraphQLConfiguration.fromJSON(null);
        assertFalse(sut.isEnabled());
        assertFalse(sut.isFeatureEnabled(Features.TOKENIZE_CREDIT_CARDS));
        assertEquals("", sut.getUrl());
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        GraphQLConfiguration sut = GraphQLConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        GraphQLConfiguration sut = GraphQLConfiguration.fromJSON(new JSONObject());
         assertFalse(sut.isEnabled());
         assertFalse(sut.isFeatureEnabled(Features.TOKENIZE_CREDIT_CARDS));
         assertEquals("", sut.getUrl());

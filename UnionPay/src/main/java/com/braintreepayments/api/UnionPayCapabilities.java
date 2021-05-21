@@ -24,7 +24,7 @@ public class UnionPayCapabilities implements Parcelable {
     private boolean isSupported;
 
     @NonNull
-    public static UnionPayCapabilities fromJson(@NonNull String jsonString) {
+    public static UnionPayCapabilities fromJSON(@NonNull String jsonString) {
         UnionPayCapabilities unionPayCapabilities = new UnionPayCapabilities();
 
         try {

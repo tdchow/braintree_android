@@ -29,7 +29,7 @@ public class ThreeDSecureResult implements Parcelable {
      * @return The {@link ThreeDSecureResult} to use when performing 3D Secure
      * authentication.
      */
-    static ThreeDSecureResult fromJson(String jsonString) throws JSONException {
+    static ThreeDSecureResult fromJSON(String jsonString) throws JSONException {
         ThreeDSecureResult result = new ThreeDSecureResult();
         JSONObject json = new JSONObject(jsonString);
 
@@ -48,7 +48,7 @@ public class ThreeDSecureResult implements Parcelable {
 
         if (json.has(LOOKUP_KEY)) {
             String lookupJson = json.getJSONObject(LOOKUP_KEY).toString();
-            result.lookup = ThreeDSecureLookup.fromJson(lookupJson);
+            result.lookup = ThreeDSecureLookup.fromJSON(lookupJson);
         }
 
         return result;

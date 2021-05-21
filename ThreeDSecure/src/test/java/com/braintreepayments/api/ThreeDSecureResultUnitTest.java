@@ -16,8 +16,8 @@ import static junit.framework.Assert.assertTrue;
 public class ThreeDSecureResultUnitTest {
 
     @Test
-    public void fromJson_parsesCorrectly_v1() throws JSONException {
-        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJson(
+    public void fromJSON_parsesCorrectly_v1() throws JSONException {
+        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJSON(
                 Fixtures.THREE_D_SECURE_AUTHENTICATION_RESPONSE);
 
         assertEquals("11", authResponse.getTokenizedCard().getLastTwo());
@@ -27,8 +27,8 @@ public class ThreeDSecureResultUnitTest {
     }
 
     @Test
-    public void fromJson_parsesCorrectly_v2() throws JSONException {
-        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJson(
+    public void fromJSON_parsesCorrectly_v2() throws JSONException {
+        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJSON(
                 Fixtures.THREE_D_SECURE_V2_AUTHENTICATION_RESPONSE);
 
         assertEquals("91", authResponse.getTokenizedCard().getLastTwo());
@@ -38,8 +38,8 @@ public class ThreeDSecureResultUnitTest {
     }
 
     @Test
-    public void fromJson_whenAuthenticationErrorOccurs_parsesCorrectly_v1() throws JSONException {
-        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJson(
+    public void fromJSON_whenAuthenticationErrorOccurs_parsesCorrectly_v1() throws JSONException {
+        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJSON(
                 Fixtures.THREE_D_SECURE_AUTHENTICATION_RESPONSE_WITH_ERROR);
 
         assertNull(authResponse.getTokenizedCard());
@@ -47,8 +47,8 @@ public class ThreeDSecureResultUnitTest {
     }
 
     @Test
-    public void fromJson_whenAuthenticationErrorOccurs_parsesCorrectly_v2() throws JSONException {
-        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJson(
+    public void fromJSON_whenAuthenticationErrorOccurs_parsesCorrectly_v2() throws JSONException {
+        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJSON(
                 Fixtures.THREE_D_SECURE_V2_AUTHENTICATION_RESPONSE_WITH_ERROR);
 
         assertNull(authResponse.getTokenizedCard());
@@ -57,7 +57,7 @@ public class ThreeDSecureResultUnitTest {
 
     @Test
     public void isParcelable() throws JSONException {
-        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJson(
+        ThreeDSecureResult authResponse = ThreeDSecureResult.fromJSON(
                 Fixtures.THREE_D_SECURE_AUTHENTICATION_RESPONSE);
         Parcel parcel = Parcel.obtain();
         authResponse.writeToParcel(parcel, 0);

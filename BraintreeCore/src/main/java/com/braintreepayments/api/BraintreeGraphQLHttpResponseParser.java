@@ -51,7 +51,7 @@ class BraintreeGraphQLHttpResponseParser implements HttpResponseParser {
                 }
             }
 
-            throw ErrorWithResponse.fromGraphQLJson(response);
+            throw ErrorWithResponse.fromGraphQLJSON(response);
         }
         return response;
     }

@@ -83,7 +83,7 @@ public class PayPalAccountNonce extends PaymentMethodNonce {
         try {
             if (details.has(CREDIT_FINANCING_KEY)) {
                 JSONObject creditFinancing = details.getJSONObject(CREDIT_FINANCING_KEY);
-                payPalCreditFinancing = PayPalCreditFinancing.fromJson(creditFinancing);
+                payPalCreditFinancing = PayPalCreditFinancing.fromJSON(creditFinancing);
             }
 
             JSONObject payerInfo = details.getJSONObject(PAYER_INFO_KEY);
@@ -93,8 +93,8 @@ public class PayPalAccountNonce extends PaymentMethodNonce {
                 billingAddressJson = payerInfo.optJSONObject(ACCOUNT_ADDRESS_KEY);
             }
 
-            shippingAddress = PostalAddressParser.fromJson(payerInfo.optJSONObject(SHIPPING_ADDRESS_KEY));
-            billingAddress = PostalAddressParser.fromJson(billingAddressJson);
+            shippingAddress = PostalAddressParser.fromJSON(payerInfo.optJSONObject(SHIPPING_ADDRESS_KEY));
+            billingAddress = PostalAddressParser.fromJSON(billingAddressJson);
             firstName = Json.optString(payerInfo, FIRST_NAME_KEY, "");
             lastName = Json.optString(payerInfo, LAST_NAME_KEY, "");
             phone = Json.optString(payerInfo, PHONE_KEY, "");
@@ -113,7 +113,7 @@ public class PayPalAccountNonce extends PaymentMethodNonce {
         if (getShippingAddressFromTopLevel) {
             JSONObject shippingAddressJson = json.optJSONObject(SHIPPING_ADDRESS_KEY);
             if (shippingAddressJson != null) {
-                shippingAddress = PostalAddressParser.fromJson(shippingAddressJson);
+                shippingAddress = PostalAddressParser.fromJSON(shippingAddressJson);
             }
         }
 

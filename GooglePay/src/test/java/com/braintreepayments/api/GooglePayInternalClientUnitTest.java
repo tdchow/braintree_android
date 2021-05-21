@@ -67,7 +67,7 @@ public class GooglePayInternalClientUnitTest {
         when(Wallet.getPaymentsClient(any(Activity.class), any(Wallet.WalletOptions.class))).thenReturn(paymentsClient);
         when(paymentsClient.isReadyToPay(same(isReadyToPayRequest))).thenReturn(Tasks.forResult(true));
 
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY);
 
         GooglePayInternalClient sut = new GooglePayInternalClient();
         sut.isReadyToPay(activity, configuration, isReadyToPayRequest, isReadyToPayCallback);
@@ -86,7 +86,7 @@ public class GooglePayInternalClientUnitTest {
         when(Wallet.getPaymentsClient(any(Activity.class), any(Wallet.WalletOptions.class))).thenReturn(paymentsClient);
         when(paymentsClient.isReadyToPay(same(isReadyToPayRequest))).thenReturn(Tasks.forResult(true));
 
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY_PRODUCTION);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY_PRODUCTION);
 
         GooglePayInternalClient sut = new GooglePayInternalClient();
         sut.isReadyToPay(activity, configuration, isReadyToPayRequest, isReadyToPayCallback);
@@ -107,7 +107,7 @@ public class GooglePayInternalClientUnitTest {
 
         when(paymentsClient.isReadyToPay(same(isReadyToPayRequest))).thenReturn(Tasks.forResult(true));
 
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY);
 
         GooglePayInternalClient sut = new GooglePayInternalClient();
         sut.isReadyToPay(activity, configuration, isReadyToPayRequest, new GooglePayIsReadyToPayCallback() {
@@ -129,7 +129,7 @@ public class GooglePayInternalClientUnitTest {
         final ApiException error = new ApiException(Status.RESULT_INTERNAL_ERROR);
         when(paymentsClient.isReadyToPay(same(isReadyToPayRequest))).thenReturn(Tasks.<Boolean>forException(error));
 
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GOOGLE_PAY);
 
         GooglePayInternalClient sut = new GooglePayInternalClient();
         sut.isReadyToPay(activity, configuration, isReadyToPayRequest, new GooglePayIsReadyToPayCallback() {

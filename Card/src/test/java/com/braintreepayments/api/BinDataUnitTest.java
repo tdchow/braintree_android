@@ -18,7 +18,7 @@ public class BinDataUnitTest {
 
     @Test
     public void parsesCorrectly_ifEmptyJson() throws JSONException {
-        BinData binData = BinData.fromJson(new JSONObject("{}"));
+        BinData binData = BinData.fromJSON(new JSONObject("{}"));
 
         assertNotNull(binData);
         assertEquals(UNKNOWN, binData.getPrepaid());
@@ -34,7 +34,7 @@ public class BinDataUnitTest {
 
     @Test
     public void parsesCorrectly_ifNull() {
-        BinData binData = BinData.fromJson(new JSONObject());
+        BinData binData = BinData.fromJSON(new JSONObject());
 
         assertNotNull(binData);
         assertEquals(UNKNOWN, binData.getPrepaid());
@@ -55,7 +55,7 @@ public class BinDataUnitTest {
                 .put("countryOfIssuance", JSONObject.NULL)
                 .put("productId", JSONObject.NULL);
 
-        BinData binData = BinData.fromJson(jsonObject);
+        BinData binData = BinData.fromJSON(jsonObject);
         assertEquals(UNKNOWN, binData.getIssuingBank());
         assertEquals(UNKNOWN, binData.getCountryOfIssuance());
         assertEquals(UNKNOWN, binData.getProductId());
@@ -63,7 +63,7 @@ public class BinDataUnitTest {
 
     @Test
     public void isParcelable() throws JSONException {
-        BinData binData = BinData.fromJson(new JSONObject(Fixtures.BIN_DATA));
+        BinData binData = BinData.fromJSON(new JSONObject(Fixtures.BIN_DATA));
         Parcel parcel = Parcel.obtain();
         binData.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);

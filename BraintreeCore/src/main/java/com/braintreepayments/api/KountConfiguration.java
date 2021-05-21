@@ -20,7 +20,7 @@ class KountConfiguration {
      * @return a {@link KountConfiguration} instance with the data that was able to be parsed from
      * the {@link JSONObject}.
      */
-    static KountConfiguration fromJson(JSONObject json) {
+    static KountConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

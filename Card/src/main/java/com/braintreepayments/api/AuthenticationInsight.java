@@ -15,7 +15,7 @@ public class AuthenticationInsight implements Parcelable {
 
     private String regulationEnvironment;
 
-    static AuthenticationInsight fromJson(JSONObject json) {
+    static AuthenticationInsight fromJSON(JSONObject json) {
         if (json == null) {
             return null;
         }

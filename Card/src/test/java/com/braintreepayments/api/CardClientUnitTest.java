@@ -42,8 +42,8 @@ public class CardClientUnitTest {
         dataCollector = mock(DataCollector.class);
         tokenizationClient = mock(TokenizationClient.class);
 
-        graphQLEnabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GRAPHQL);
-        graphQLDisabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        graphQLEnabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GRAPHQL);
+        graphQLDisabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
     }
 
     @Test

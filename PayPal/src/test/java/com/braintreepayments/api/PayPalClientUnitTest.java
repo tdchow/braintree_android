@@ -38,8 +38,8 @@ public class PayPalClientUnitTest {
     public void beforeEach() throws JSONException {
         context = mock(FragmentActivity.class);
 
-        payPalEnabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_LIVE_PAYPAL);
-        payPalDisabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_DISABLED_PAYPAL);
+        payPalEnabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_LIVE_PAYPAL);
+        payPalDisabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_DISABLED_PAYPAL);
 
         payPalBrowserSwitchResultCallback = mock(PayPalBrowserSwitchResultCallback.class);
         payPalFlowStartedCallback = mock(PayPalFlowStartedCallback.class);

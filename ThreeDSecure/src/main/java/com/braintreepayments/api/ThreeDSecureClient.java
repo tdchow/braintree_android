@@ -201,7 +201,7 @@ public class ThreeDSecureClient {
             public void onResult(@Nullable Configuration configuration, @Nullable Exception error) {
                 ThreeDSecureResult result;
                 try {
-                    result = ThreeDSecureResult.fromJson(lookupResponse);
+                    result = ThreeDSecureResult.fromJSON(lookupResponse);
                     startVerificationFlow(activity, configuration, request, result, callback);
                 } catch (JSONException e) {
                     callback.onResult(null, e);
@@ -290,7 +290,7 @@ public class ThreeDSecureClient {
             @Override
             public void success(String responseBody) {
                 try {
-                    ThreeDSecureResult result = ThreeDSecureResult.fromJson(responseBody);
+                    ThreeDSecureResult result = ThreeDSecureResult.fromJSON(responseBody);
                     if (result.hasError()) {
                         result.setTokenizedCard(lookupCardNonce);
                         braintreeClient.sendAnalyticsEvent("three-d-secure.verification-flow.upgrade-payment-method.failure.returned-lookup-nonce");
@@ -333,7 +333,7 @@ public class ThreeDSecureClient {
                 if (deepLinkUrl != null) {
                     String authResponse = deepLinkUrl.getQueryParameter("auth_response");
                     try {
-                        ThreeDSecureResult result = ThreeDSecureResult.fromJson(authResponse);
+                        ThreeDSecureResult result = ThreeDSecureResult.fromJSON(authResponse);
                         if (result.hasError()) {
                             callback.onResult(null, new ErrorWithResponse(422, authResponse));
                         } else {
@@ -393,7 +393,7 @@ public class ThreeDSecureClient {
             @Override
             public void success(String responseBody) {
                 try {
-                    ThreeDSecureResult result = ThreeDSecureResult.fromJson(responseBody);
+                    ThreeDSecureResult result = ThreeDSecureResult.fromJSON(responseBody);
                     callback.onResult(result, null);
                 } catch (JSONException e) {
                     callback.onResult(null, e);

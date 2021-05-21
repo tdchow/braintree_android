@@ -16,7 +16,7 @@ class VisaCheckoutConfiguration {
     private String externalClientId;
     private List<String> cardBrands;
 
-    static VisaCheckoutConfiguration fromJson(JSONObject json) {
+    static VisaCheckoutConfiguration fromJSON(JSONObject json) {
         VisaCheckoutConfiguration visaCheckoutConfiguration = new VisaCheckoutConfiguration();
 
         if (json == null) {
@@ -27,7 +27,7 @@ class VisaCheckoutConfiguration {
         visaCheckoutConfiguration.isEnabled = !visaCheckoutConfiguration.apiKey.equals("");
         visaCheckoutConfiguration.externalClientId = Json.optString(json, "externalClientId", "");
         visaCheckoutConfiguration.cardBrands = supportedCardTypesToAcceptedCardBrands(
-                CardConfiguration.fromJson(json).getSupportedCardTypes());
+                CardConfiguration.fromJSON(json).getSupportedCardTypes());
 
         return visaCheckoutConfiguration;
     }

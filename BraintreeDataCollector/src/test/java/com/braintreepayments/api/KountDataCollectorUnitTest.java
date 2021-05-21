@@ -73,7 +73,7 @@ public class KountDataCollectorUnitTest {
     @Test
     public void startDataCollection_configuresKountLibrary() throws JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_KOUNT))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_KOUNT))
                 .build();
         KountDataCollector sut = new KountDataCollector(braintreeClient, kountDataCollector);
 
@@ -89,7 +89,7 @@ public class KountDataCollectorUnitTest {
     @Test
     public void startDataCollection_collectsKountSessionData() throws JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_KOUNT))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_KOUNT))
                 .build();
         KountDataCollector sut = new KountDataCollector(braintreeClient, kountDataCollector);
 
@@ -102,7 +102,7 @@ public class KountDataCollectorUnitTest {
     @Test
     public void startDataCollection_onSuccess_forwardsSessionIdOnCompletion() throws JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_KOUNT))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_KOUNT))
                 .build();
         KountDataCollector sut = new KountDataCollector(braintreeClient, kountDataCollector);
 
@@ -122,7 +122,7 @@ public class KountDataCollectorUnitTest {
     @Test
     public void startDataCollection_onSuccess_sendsKountStartAnalyticsEvent() throws JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_KOUNT))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_KOUNT))
                 .build();
         KountDataCollector sut = new KountDataCollector(braintreeClient, kountDataCollector);
 
@@ -142,7 +142,7 @@ public class KountDataCollectorUnitTest {
     @Test
     public void startDataCollection_onFailure_forwardsSessionIdOnCompletion() throws JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_KOUNT))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_KOUNT))
                 .build();
         KountDataCollector sut = new KountDataCollector(braintreeClient, kountDataCollector);
 
@@ -162,7 +162,7 @@ public class KountDataCollectorUnitTest {
     @Test
     public void startDataCollection_onFailure_sendsKountStartAnalyticsEvent() throws JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(Fixtures.CONFIGURATION_WITH_KOUNT))
+                .configuration(Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_KOUNT))
                 .build();
         KountDataCollector sut = new KountDataCollector(braintreeClient, kountDataCollector);
 

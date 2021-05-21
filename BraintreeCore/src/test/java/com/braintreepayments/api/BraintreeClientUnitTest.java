@@ -169,7 +169,7 @@ public class BraintreeClientUnitTest {
 
     @Test
     public void sendAnalyticsEvent_sendsEventToAnalyticsClient() throws JSONException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
         ConfigurationLoader configurationLoader = new MockConfigurationLoaderBuilder()
                 .configuration(configuration)
                 .build();
@@ -217,7 +217,7 @@ public class BraintreeClientUnitTest {
 
     @Test
     public void sendAnalyticsEvent_whenAnalyticsNotEnabled_doesNothing() throws JSONException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ANALYTICS);
         ConfigurationLoader configurationLoader = new MockConfigurationLoaderBuilder()
                 .configuration(configuration)
                 .build();

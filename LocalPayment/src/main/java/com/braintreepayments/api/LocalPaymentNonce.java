@@ -67,8 +67,8 @@ public class LocalPaymentNonce extends PaymentMethodNonce {
 
             JSONObject shippingAddressJson = payerInfo.optJSONObject(SHIPPING_ADDRESS_KEY);
 
-            billingAddress = PostalAddressParser.fromJson(billingAddressJson);
-            shippingAddress = PostalAddressParser.fromJson(shippingAddressJson);
+            billingAddress = PostalAddressParser.fromJSON(billingAddressJson);
+            shippingAddress = PostalAddressParser.fromJSON(shippingAddressJson);
 
             givenName = Json.optString(payerInfo, FIRST_NAME_KEY, "");
             surname = Json.optString(payerInfo, LAST_NAME_KEY, "");

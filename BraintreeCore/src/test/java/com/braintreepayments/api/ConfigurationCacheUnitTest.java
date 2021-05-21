@@ -20,7 +20,7 @@ public class ConfigurationCacheUnitTest {
 
     @Test
     public void saveConfiguration_savesConfigurationInSharedPrefs() throws JSONException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
         Context context = ApplicationProvider.getApplicationContext();
 
         ConfigurationCache sut = new ConfigurationCache();
@@ -32,7 +32,7 @@ public class ConfigurationCacheUnitTest {
 
     @Test
     public void getCacheConfiguration_returnsConfigurationFromSharedPrefs() throws JSONException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
         Context context = ApplicationProvider.getApplicationContext();
 
         ConfigurationCache sut = new ConfigurationCache();
@@ -43,7 +43,7 @@ public class ConfigurationCacheUnitTest {
 
     @Test
     public void getCacheConfiguration_returnsNullIfCacheEntryExpires() throws JSONException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
         Context context = ApplicationProvider.getApplicationContext();
 
         ConfigurationCache sut = new ConfigurationCache();

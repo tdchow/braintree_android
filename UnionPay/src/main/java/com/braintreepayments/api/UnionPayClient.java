@@ -66,7 +66,7 @@ public class UnionPayClient {
                 braintreeClient.sendGET(fetchCapabilitiesUrl, new HttpResponseCallback() {
                     @Override
                     public void success(String responseBody) {
-                        callback.onResult(UnionPayCapabilities.fromJson(responseBody), null);
+                        callback.onResult(UnionPayCapabilities.fromJSON(responseBody), null);
                         braintreeClient.sendAnalyticsEvent("union-pay.capabilities-received");
                     }
 

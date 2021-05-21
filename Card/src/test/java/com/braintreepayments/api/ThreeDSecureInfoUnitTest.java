@@ -13,7 +13,7 @@ public class ThreeDSecureInfoUnitTest {
     @Test
     public void canCreateThreeDSecureInfoFromJson() throws JSONException {
         JSONObject json = new JSONObject(Fixtures.PAYMENT_METHODS_RESPONSE_VISA_CREDIT_CARD);
-        ThreeDSecureInfo info = ThreeDSecureInfo.fromJson(
+        ThreeDSecureInfo info = ThreeDSecureInfo.fromJSON(
                 json.getJSONArray("creditCards")
                         .getJSONObject(0)
                         .getJSONObject("threeDSecureInfo"));

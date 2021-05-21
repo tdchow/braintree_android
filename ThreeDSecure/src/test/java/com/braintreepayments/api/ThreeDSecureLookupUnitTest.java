@@ -25,16 +25,16 @@ public class ThreeDSecureLookupUnitTest {
     @Before
     public void setUp() throws JSONException {
         JSONObject lookupWithoutVersionJSON = new JSONObject(Fixtures.THREE_D_SECURE_LOOKUP_RESPONSE).getJSONObject("lookup");
-        lookupWithoutVersion = ThreeDSecureLookup.fromJson(lookupWithoutVersionJSON.toString()); // Lookup doesn't contain a 3DS version number
+        lookupWithoutVersion = ThreeDSecureLookup.fromJSON(lookupWithoutVersionJSON.toString()); // Lookup doesn't contain a 3DS version number
 
         JSONObject lookupVersionOneJSON = new JSONObject(Fixtures.THREE_D_SECURE_V1_LOOKUP_RESPONSE).getJSONObject("lookup");
-        lookupWithVersion1 = ThreeDSecureLookup.fromJson(lookupVersionOneJSON.toString());
+        lookupWithVersion1 = ThreeDSecureLookup.fromJSON(lookupVersionOneJSON.toString());
 
         JSONObject lookupVersionTwoJSON = new JSONObject(Fixtures.THREE_D_SECURE_V2_LOOKUP_RESPONSE).getJSONObject("lookup");
-        lookupWithVersion2 = ThreeDSecureLookup.fromJson(lookupVersionTwoJSON.toString());
+        lookupWithVersion2 = ThreeDSecureLookup.fromJSON(lookupVersionTwoJSON.toString());
 
         JSONObject lookupWithoutAcsURLJSON = new JSONObject(Fixtures.THREE_D_SECURE_LOOKUP_RESPONSE_NO_ACS_URL).getJSONObject("lookup");
-        lookupWithoutAcsURL = ThreeDSecureLookup.fromJson(lookupWithoutAcsURLJSON.toString());
+        lookupWithoutAcsURL = ThreeDSecureLookup.fromJSON(lookupWithoutAcsURLJSON.toString());
     }
 
     @Test

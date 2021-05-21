@@ -30,7 +30,7 @@ public class ThreeDSecureActivityUnitTest {
     @Test
     public void onCreate_invokesCardinalWithLookupData() throws JSONException {
         ThreeDSecureResult threeDSecureResult =
-            ThreeDSecureResult.fromJson(Fixtures.THREE_D_SECURE_LOOKUP_RESPONSE);
+            ThreeDSecureResult.fromJSON(Fixtures.THREE_D_SECURE_LOOKUP_RESPONSE);
 
         Bundle extras = new Bundle();
         extras.putParcelable(ThreeDSecureActivity.EXTRA_THREE_D_SECURE_RESULT, threeDSecureResult);
@@ -56,7 +56,7 @@ public class ThreeDSecureActivityUnitTest {
     @Test
     public void onValidated_returnsValidationResults() throws JSONException {
         ThreeDSecureResult threeDSecureResult =
-            ThreeDSecureResult.fromJson(Fixtures.THREE_D_SECURE_LOOKUP_RESPONSE);
+            ThreeDSecureResult.fromJSON(Fixtures.THREE_D_SECURE_LOOKUP_RESPONSE);
 
         Bundle extras = new Bundle();
         extras.putParcelable(ThreeDSecureActivity.EXTRA_THREE_D_SECURE_RESULT, threeDSecureResult);

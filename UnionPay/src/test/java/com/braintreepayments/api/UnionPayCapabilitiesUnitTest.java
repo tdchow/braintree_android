@@ -31,7 +31,7 @@ public class UnionPayCapabilitiesUnitTest {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        unionPayCapabilities = UnionPayCapabilities.fromJson(unionPayCapabilitiesJson.toString());
+        unionPayCapabilities = UnionPayCapabilities.fromJSON(unionPayCapabilitiesJson.toString());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class UnionPayCapabilitiesUnitTest {
 
         jsonObject.put("unionPay", unionPayObject);
 
-        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJson(jsonObject.toString());
+        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJSON(jsonObject.toString());
         assertTrue(unionPayCapabilities.isUnionPay());
         assertFalse(unionPayCapabilities.isDebit());
         assertTrue(unionPayCapabilities.supportsTwoStepAuthAndCapture());
@@ -77,7 +77,7 @@ public class UnionPayCapabilitiesUnitTest {
 
     @Test
     public void fromJson_emptyJsonObject_expectsAllFalse() {
-        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJson("{}");
+        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJSON("{}");
         assertFalse(unionPayCapabilities.isUnionPay());
         assertFalse(unionPayCapabilities.isDebit());
         assertFalse(unionPayCapabilities.supportsTwoStepAuthAndCapture());
@@ -90,7 +90,7 @@ public class UnionPayCapabilitiesUnitTest {
         jsonObject.put("isUnionPay", true);
         jsonObject.put("isDebit", true);
 
-        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJson(jsonObject.toString());
+        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJSON(jsonObject.toString());
         assertTrue(unionPayCapabilities.isUnionPay());
         assertTrue(unionPayCapabilities.isDebit());
         assertFalse(unionPayCapabilities.supportsTwoStepAuthAndCapture());
@@ -102,7 +102,7 @@ public class UnionPayCapabilitiesUnitTest {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("isUnionPay", false);
 
-        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJson(jsonObject.toString());
+        UnionPayCapabilities unionPayCapabilities = UnionPayCapabilities.fromJSON(jsonObject.toString());
         assertFalse(unionPayCapabilities.isUnionPay());
         assertFalse(unionPayCapabilities.isDebit());
         assertFalse(unionPayCapabilities.supportsTwoStepAuthAndCapture());

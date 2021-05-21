@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class PayPalConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("displayName", "sample display name")
                 .put("clientId", "sample-client-id")
@@ -25,7 +25,7 @@ public class PayPalConfigurationUnitTest {
                 .put("touchDisabled", true)
                 .put("currencyIsoCode", "USD");
 
-        PayPalConfiguration sut = PayPalConfiguration.fromJson(input);
+        PayPalConfiguration sut = PayPalConfiguration.fromJSON(input);
         assertEquals("sample display name", sut.getDisplayName());
         assertEquals("sample-client-id", sut.getClientId());
         assertEquals("https://example.com/privacy_url", sut.getPrivacyUrl());
@@ -37,8 +37,8 @@ public class PayPalConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-        PayPalConfiguration sut = PayPalConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+        PayPalConfiguration sut = PayPalConfiguration.fromJSON(null);
         assertNull(sut.getDisplayName());
         assertNull(sut.getClientId());
         assertNull(sut.getPrivacyUrl());
@@ -49,8 +49,8 @@ public class PayPalConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        PayPalConfiguration sut = PayPalConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        PayPalConfiguration sut = PayPalConfiguration.fromJSON(new JSONObject());
         assertNull(sut.getDisplayName());
         assertNull(sut.getClientId());
         assertNull(sut.getPrivacyUrl());

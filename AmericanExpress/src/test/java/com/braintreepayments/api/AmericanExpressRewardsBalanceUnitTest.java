@@ -14,9 +14,9 @@ import static junit.framework.Assert.assertNull;
 public class AmericanExpressRewardsBalanceUnitTest {
 
     @Test
-    public void fromJson_parsesResponse() throws JSONException {
+    public void fromJSON_parsesResponse() throws JSONException {
         AmericanExpressRewardsBalance rewardsBalance = AmericanExpressRewardsBalance
-                .fromJson(Fixtures.AMEX_REWARDS_BALANCE_SUCCESS);
+                .fromJSON(Fixtures.AMEX_REWARDS_BALANCE_SUCCESS);
 
         assertEquals("0.0070", rewardsBalance.getConversionRate());
         assertEquals("316795.03", rewardsBalance.getCurrencyAmount());
@@ -29,9 +29,9 @@ public class AmericanExpressRewardsBalanceUnitTest {
     }
 
     @Test
-    public void fromJson_parsesResponseForIneligibleCard() throws JSONException {
+    public void fromJSON_parsesResponseForIneligibleCard() throws JSONException {
         AmericanExpressRewardsBalance rewardsBalance = AmericanExpressRewardsBalance
-                .fromJson(Fixtures.AMEX_REWARDS_BALANCE_INELIGIBLE_CARD);
+                .fromJSON(Fixtures.AMEX_REWARDS_BALANCE_INELIGIBLE_CARD);
 
         assertNull(rewardsBalance.getConversionRate());
         assertNull(rewardsBalance.getCurrencyAmount());
@@ -46,7 +46,7 @@ public class AmericanExpressRewardsBalanceUnitTest {
     @Test
     public void parcelsCorrectly() throws JSONException {
         AmericanExpressRewardsBalance rewardsBalanceFromJson = AmericanExpressRewardsBalance
-                .fromJson(Fixtures.AMEX_REWARDS_BALANCE_SUCCESS);
+                .fromJSON(Fixtures.AMEX_REWARDS_BALANCE_SUCCESS);
 
         Parcel parcel = Parcel.obtain();
         rewardsBalanceFromJson.writeToParcel(parcel, 0);
@@ -66,7 +66,7 @@ public class AmericanExpressRewardsBalanceUnitTest {
     @Test
     public void parcelsCorrectly_forErrorResponse() throws JSONException {
         AmericanExpressRewardsBalance rewardsBalanceFromJson = AmericanExpressRewardsBalance
-                .fromJson(Fixtures.AMEX_REWARDS_BALANCE_INSUFFICIENT_POINTS);
+                .fromJSON(Fixtures.AMEX_REWARDS_BALANCE_INSUFFICIENT_POINTS);
 
         Parcel parcel = Parcel.obtain();
         rewardsBalanceFromJson.writeToParcel(parcel, 0);

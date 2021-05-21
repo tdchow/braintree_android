@@ -36,7 +36,7 @@ class PayPalPaymentResource {
      * @return a PayPal payment resource
      * @throws JSONException when json input is invalid
      */
-    static PayPalPaymentResource fromJson(String jsonString) throws JSONException {
+    static PayPalPaymentResource fromJSON(String jsonString) throws JSONException {
         JSONObject json = new JSONObject(jsonString);
 
         PayPalPaymentResource payPalPaymentResource = new PayPalPaymentResource();

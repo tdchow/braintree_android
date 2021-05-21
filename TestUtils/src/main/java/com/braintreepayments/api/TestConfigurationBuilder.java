@@ -165,8 +165,8 @@ public class TestConfigurationBuilder extends JSONBuilder {
     public <T> T buildConfiguration() {
         try {
             Class configuration = Class.forName("com.braintreepayments.api.Configuration");
-            Method fromJson = configuration.getDeclaredMethod("fromJson", String.class);
-            return (T) fromJson.invoke(null, build());
+            Method fromJSON = configuration.getDeclaredMethod("fromJSON", String.class);
+            return (T) fromJSON.invoke(null, build());
         } catch (NoSuchMethodException ignored) {}
         catch (InvocationTargetException ignored) {}
         catch (IllegalAccessException ignored) {}

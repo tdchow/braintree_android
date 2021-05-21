@@ -47,8 +47,8 @@ public class LocalPaymentClientUnitTest {
         braintreeClient = mock(BraintreeClient.class);
         payPalDataCollector = mock(PayPalDataCollector.class);
 
-        payPalEnabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_LIVE_PAYPAL);
-        payPalDisabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_DISABLED_PAYPAL);
+        payPalEnabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_LIVE_PAYPAL);
+        payPalDisabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_DISABLED_PAYPAL);
     }
 
     @Test

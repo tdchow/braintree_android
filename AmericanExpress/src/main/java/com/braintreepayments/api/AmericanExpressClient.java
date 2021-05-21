@@ -39,7 +39,7 @@ public class AmericanExpressClient {
             public void success(String responseBody) {
                 braintreeClient.sendAnalyticsEvent("amex.rewards-balance.success");
                 try {
-                    AmericanExpressRewardsBalance rewardsBalance = AmericanExpressRewardsBalance.fromJson(responseBody);
+                    AmericanExpressRewardsBalance rewardsBalance = AmericanExpressRewardsBalance.fromJSON(responseBody);
                     callback.onResult(rewardsBalance, null);
                 } catch (JSONException e) {
                     braintreeClient.sendAnalyticsEvent("amex.rewards-balance.parse.failed");

@@ -25,7 +25,7 @@ public class BraintreeError implements Parcelable {
     private String message;
     private List<BraintreeError> fieldErrors;
 
-    static List<BraintreeError> fromJsonArray(JSONArray json) {
+    static List<BraintreeError> fromJSONArray(JSONArray json) {
         if (json == null) {
             json = new JSONArray();
         }
@@ -33,14 +33,14 @@ public class BraintreeError implements Parcelable {
         List<BraintreeError> errors = new ArrayList<>();
         for (int i = 0; i < json.length(); i++) {
             try {
-                errors.add(BraintreeError.fromJson(json.getJSONObject(i)));
+                errors.add(BraintreeError.fromJSON(json.getJSONObject(i)));
             } catch (JSONException ignored) {}
         }
 
         return errors;
     }
 
-    protected static List<BraintreeError> fromGraphQLJsonArray(JSONArray graphQLErrors) {
+    protected static List<BraintreeError> fromGraphQLJSONArray(JSONArray graphQLErrors) {
         List<BraintreeError> errors = new ArrayList<>();
 
         if (graphQLErrors == null) {
@@ -70,11 +70,11 @@ public class BraintreeError implements Parcelable {
         return errors;
     }
 
-    static BraintreeError fromJson(JSONObject json) {
+    static BraintreeError fromJSON(JSONObject json) {
         BraintreeError error = new BraintreeError();
         error.field = Json.optString(json, FIELD_KEY, null);
         error.message = Json.optString(json, MESSAGE_KEY, null);
-        error.fieldErrors = BraintreeError.fromJsonArray(json.optJSONArray(FIELD_ERRORS_KEY));
+        error.fieldErrors = BraintreeError.fromJSONArray(json.optJSONArray(FIELD_ERRORS_KEY));
 
         return error;
     }

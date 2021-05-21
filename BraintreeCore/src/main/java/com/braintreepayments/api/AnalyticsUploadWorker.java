@@ -54,7 +54,7 @@ public class AnalyticsUploadWorker extends Worker {
             String configJson = inputData.getString(ANALYTICS_INPUT_DATA_CONFIGURATION_KEY);
             if (configJson != null) {
                 try {
-                    return Configuration.fromJson(configJson);
+                    return Configuration.fromJSON(configJson);
                 } catch (JSONException e) { /* ignored */ }
             }
         }

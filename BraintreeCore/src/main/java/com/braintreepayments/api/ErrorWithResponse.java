@@ -36,7 +36,7 @@ public class ErrorWithResponse extends Exception implements Parcelable {
         originalResponse = jsonString;
 
         try {
-            parseJson(jsonString);
+            parseJSON(jsonString);
         } catch (JSONException e) {
             message = "Parsing error response failed";
             fieldErrors = new ArrayList<>();
@@ -45,15 +45,15 @@ public class ErrorWithResponse extends Exception implements Parcelable {
 
     private ErrorWithResponse() {}
 
-    static ErrorWithResponse fromJson(String json) throws JSONException {
+    static ErrorWithResponse fromJSON(String json) throws JSONException {
         ErrorWithResponse errorWithResponse = new ErrorWithResponse();
         errorWithResponse.originalResponse = json;
-        errorWithResponse.parseJson(json);
+        errorWithResponse.parseJSON(json);
 
         return errorWithResponse;
     }
 
-    static ErrorWithResponse fromGraphQLJson(String json) {
+    static ErrorWithResponse fromGraphQLJSON(String json) {
         ErrorWithResponse errorWithResponse = new ErrorWithResponse();
         errorWithResponse.originalResponse = json;
         errorWithResponse.statusCode = 422;
@@ -61,7 +61,7 @@ public class ErrorWithResponse extends Exception implements Parcelable {
         try {
             JSONArray errors = new JSONObject(json).getJSONArray(Keys.ERRORS);
 
-            errorWithResponse.fieldErrors = BraintreeError.fromGraphQLJsonArray(errors);
+            errorWithResponse.fieldErrors = BraintreeError.fromGraphQLJSONArray(errors);
 
             if (errorWithResponse.fieldErrors.isEmpty()) {
                 errorWithResponse.message = errors.getJSONObject(0).getString(Keys.MESSAGE);
@@ -76,10 +76,10 @@ public class ErrorWithResponse extends Exception implements Parcelable {
         return errorWithResponse;
     }
 
-    private void parseJson(String jsonString) throws JSONException {
+    private void parseJSON(String jsonString) throws JSONException {
         JSONObject json = new JSONObject(jsonString);
         message = json.getJSONObject(ERROR_KEY).getString(MESSAGE_KEY);
-        fieldErrors = BraintreeError.fromJsonArray(json.optJSONArray(FIELD_ERRORS_KEY));
+        fieldErrors = BraintreeError.fromJSONArray(json.optJSONArray(FIELD_ERRORS_KEY));
     }
 
     /**

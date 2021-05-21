@@ -39,8 +39,8 @@ public class PreferredPaymentMethodsClientUnitTest {
         applicationContext = mock(Context.class);
         deviceInspector = mock(DeviceInspector.class);
 
-        graphQLEnabledConfiguration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GRAPHQL);
-        graphQLDisabledConfiguration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        graphQLEnabledConfiguration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GRAPHQL);
+        graphQLDisabledConfiguration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
 
         when(context.getApplicationContext()).thenReturn(applicationContext);
     }

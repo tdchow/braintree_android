@@ -14,13 +14,13 @@ import static junit.framework.Assert.assertTrue;
 public class VenmoConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("accessToken", "sample-access-token")
                 .put("environment", "sample-environment")
                 .put("merchantId", "sample-merchant-id");
 
-        VenmoConfiguration sut = VenmoConfiguration.fromJson(input);
+        VenmoConfiguration sut = VenmoConfiguration.fromJSON(input);
         assertEquals("sample-access-token", sut.getAccessToken());
         assertEquals("sample-environment", sut.getEnvironment());
         assertEquals("sample-merchant-id", sut.getMerchantId());
@@ -28,8 +28,8 @@ public class VenmoConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-        VenmoConfiguration sut = VenmoConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+        VenmoConfiguration sut = VenmoConfiguration.fromJSON(null);
         assertEquals("", sut.getAccessToken());
         assertEquals("", sut.getEnvironment());
         assertEquals("", sut.getMerchantId());
@@ -37,8 +37,8 @@ public class VenmoConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        VenmoConfiguration sut = VenmoConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        VenmoConfiguration sut = VenmoConfiguration.fromJSON(new JSONObject());
         assertEquals("", sut.getAccessToken());
         assertEquals("", sut.getEnvironment());
         assertEquals("", sut.getMerchantId());

@@ -49,9 +49,9 @@ public class VisaCheckoutNonce extends PaymentMethodNonce {
         String cardType = details.getString(CARD_TYPE_KEY);
         VisaCheckoutAddress billingAddress = VisaCheckoutAddress.fromJson(json.optJSONObject(BILLING_ADDRESS_KEY));
         VisaCheckoutAddress shippingAddress = VisaCheckoutAddress.fromJson(json.optJSONObject(SHIPPING_ADDRESS_KEY));
-        VisaCheckoutUserData userData = VisaCheckoutUserData.fromJson(json.optJSONObject(USER_DATA_KEY));
+        VisaCheckoutUserData userData = VisaCheckoutUserData.fromJSON(json.optJSONObject(USER_DATA_KEY));
         String callId = Json.optString(json, CALL_ID_KEY, "");
-        BinData binData = BinData.fromJson(json.optJSONObject(BIN_DATA_KEY));
+        BinData binData = BinData.fromJSON(json.optJSONObject(BIN_DATA_KEY));
 
         String nonce = json.getString(PAYMENT_METHOD_NONCE_KEY);
         boolean isDefault = json.optBoolean(PAYMENT_METHOD_DEFAULT_KEY, false);

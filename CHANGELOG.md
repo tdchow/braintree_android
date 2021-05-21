@@ -6,6 +6,8 @@
 * Breaking Changes
   * Rename `LocalPaymentTransaction` to `LocalPaymentResult`
   * Rename `LocalPaymentClient#approveTransaction()` to `LocalPaymentClient#approvePayment()` 
+  * Rename `Configuration#fromJson()` to `Configuration#fromJSON()`
+  * Make `PayPalCreditFinancing#fromJson()` package-private
 
 ## 4.0.0-beta3
 

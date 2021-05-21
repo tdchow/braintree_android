@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertNotNull;
 public class LocalPaymentNonceUnitTest {
 
     @Test
-    public void fromJson_parsesResponse() throws JSONException {
+    public void fromJSON_parsesResponse() throws JSONException {
         LocalPaymentNonce result = LocalPaymentNonce.fromJSON(new JSONObject(Fixtures.PAYMENT_METHODS_LOCAL_PAYMENT_RESPONSE));
 
         assertNotNull(result);

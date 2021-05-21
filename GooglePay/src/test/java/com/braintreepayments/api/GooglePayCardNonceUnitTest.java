@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertTrue;
 public class GooglePayCardNonceUnitTest {
 
     @Test
-    public void fromJson_createsGooglePayCardNonce() throws Exception {
+    public void fromJSON_createsGooglePayCardNonce() throws Exception {
         String response = Fixtures.PAYMENT_METHODS_GOOGLE_PAY_CARD_RESPONSE;
         JSONObject billing = new JSONObject(response).getJSONObject("paymentMethodData")
                 .getJSONObject("info")
@@ -40,7 +40,7 @@ public class GooglePayCardNonceUnitTest {
     }
 
     @Test
-    public void fromJson_withoutBillingAddress_createsGooglePayCardNonce() throws Exception {
+    public void fromJSON_withoutBillingAddress_createsGooglePayCardNonce() throws Exception {
         String response = Fixtures.PAYMENT_METHODS_GOOGLE_PAY_CARD_RESPONSE;
         JSONObject json = new JSONObject(response);
         json.getJSONObject("paymentMethodData").getJSONObject("info").remove("billingAddress");
@@ -55,7 +55,7 @@ public class GooglePayCardNonceUnitTest {
     }
 
     @Test
-    public void fromJson_withoutShippingAddress_createsGooglePayCardNonce() throws Exception {
+    public void fromJSON_withoutShippingAddress_createsGooglePayCardNonce() throws Exception {
         String response = Fixtures.PAYMENT_METHODS_GOOGLE_PAY_CARD_RESPONSE;
         JSONObject json = new JSONObject(response);
         json.remove("shippingAddress");
@@ -70,7 +70,7 @@ public class GooglePayCardNonceUnitTest {
     }
 
     @Test
-    public void fromJson_withoutEmail_createsGooglePayCardNonce() throws JSONException {
+    public void fromJSON_withoutEmail_createsGooglePayCardNonce() throws JSONException {
         String response = Fixtures.PAYMENT_METHODS_GOOGLE_PAY_CARD_RESPONSE;
 
         JSONObject json = new JSONObject(response);

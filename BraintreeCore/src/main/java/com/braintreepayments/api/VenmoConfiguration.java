@@ -24,7 +24,7 @@ class VenmoConfiguration {
      * @return A {@link VenmoConfiguration} instance with data that was able to be parsed from the
      * {@link JSONObject}.
      */
-    static VenmoConfiguration fromJson(JSONObject json) {
+    static VenmoConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

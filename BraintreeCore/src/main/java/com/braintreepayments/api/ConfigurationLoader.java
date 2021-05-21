@@ -45,7 +45,7 @@ class ConfigurationLoader {
                 @Override
                 public void success(String responseBody) {
                     try {
-                        Configuration configuration = Configuration.fromJson(responseBody);
+                        Configuration configuration = Configuration.fromJSON(responseBody);
                         saveConfigurationToCache(context, configuration, authorization, configUrl);
                         callback.onResult(configuration, null);
                     } catch (JSONException jsonException) {
@@ -74,7 +74,7 @@ class ConfigurationLoader {
         String cacheKey = createCacheKey(authorization, configUrl);
         String cachedConfigResponse = configurationCache.getConfiguration(context, cacheKey);
         try {
-            return Configuration.fromJson(cachedConfigResponse);
+            return Configuration.fromJSON(cachedConfigResponse);
         } catch (JSONException e) {
             return null;
         }

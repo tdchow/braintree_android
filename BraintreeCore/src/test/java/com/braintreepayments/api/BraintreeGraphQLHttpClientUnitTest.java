@@ -34,7 +34,7 @@ public class BraintreeGraphQLHttpClientUnitTest {
         httpResponseCallback = mock(HttpResponseCallback.class);
 
         authorization = Authorization.fromString(Fixtures.BASE64_CLIENT_TOKEN);
-        configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GRAPHQL);
+        configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GRAPHQL);
     }
 
     @Test

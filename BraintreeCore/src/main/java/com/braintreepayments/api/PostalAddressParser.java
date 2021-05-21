@@ -32,7 +32,7 @@ class PostalAddressParser {
     static final String POSTAL_CODE_UNDERSCORE_KEY = "postal_code";
     static final String RECIPIENT_NAME_UNDERSCORE_KEY = "recipient_name";
 
-    static PostalAddress fromJson(JSONObject accountAddress) {
+    static PostalAddress fromJSON(JSONObject accountAddress) {
         // If we don't have an account address, return an empty PostalAddress.
         if (accountAddress == null) {
             return new PostalAddress();

@@ -33,7 +33,7 @@ class GooglePayConfiguration {
      * @return An {@link GooglePayConfiguration} instance with data that was able to be parsed from
      *         the {@link JSONObject}.
      */
-    static GooglePayConfiguration fromJson(JSONObject json) {
+    static GooglePayConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

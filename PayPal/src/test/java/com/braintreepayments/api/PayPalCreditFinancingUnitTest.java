@@ -19,7 +19,7 @@ public class PayPalCreditFinancingUnitTest {
 
     @Test
     public void fromJson_returnsNullWhenEmpty() throws JSONException {
-        PayPalCreditFinancing payPalCreditFinancing = PayPalCreditFinancing.fromJson(null);
+        PayPalCreditFinancing payPalCreditFinancing = PayPalCreditFinancing.fromJSON(null);
         assertNotNull(payPalCreditFinancing);
         assertFalse(payPalCreditFinancing.isCardAmountImmutable());
         assertEquals(0, payPalCreditFinancing.getTerm());
@@ -35,7 +35,7 @@ public class PayPalCreditFinancingUnitTest {
         JSONObject creditFinancingJsonObject = new JSONObject(paypalAccountResponse).getJSONArray("paypalAccounts")
                 .getJSONObject(0).getJSONObject("details").getJSONObject("creditFinancingOffered");
 
-        PayPalCreditFinancing payPalCreditFinancing = PayPalCreditFinancing.fromJson(creditFinancingJsonObject);
+        PayPalCreditFinancing payPalCreditFinancing = PayPalCreditFinancing.fromJSON(creditFinancingJsonObject);
 
         assertFalse(payPalCreditFinancing.isCardAmountImmutable());
         assertEquals(18, payPalCreditFinancing.getTerm());
@@ -54,7 +54,7 @@ public class PayPalCreditFinancingUnitTest {
         JSONObject creditFinancingJsonObject = new JSONObject(paypalAccountResponse).getJSONArray("paypalAccounts")
                 .getJSONObject(0).getJSONObject("details").getJSONObject("creditFinancingOffered");
 
-        PayPalCreditFinancing preSerialized = PayPalCreditFinancing.fromJson(creditFinancingJsonObject);
+        PayPalCreditFinancing preSerialized = PayPalCreditFinancing.fromJSON(creditFinancingJsonObject);
         Parcel parcel = Parcel.obtain();
         preSerialized.writeToParcel(parcel, 0);
         parcel.setDataPosition(0);

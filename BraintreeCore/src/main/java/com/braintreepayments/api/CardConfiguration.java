@@ -25,7 +25,7 @@ class CardConfiguration {
      * @param json The {@link JSONObject} to parse.
      * @return a {@link CardConfiguration} instance with the data that was able to be parsed from the {@link JSONObject}.
      */
-    static CardConfiguration fromJson(JSONObject json) {
+    static CardConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

@@ -345,9 +345,9 @@ public class CardClientTest {
 
         Configuration configuration;
         if (requestProtocol.equalsIgnoreCase(GRAPHQL)) {
-            configuration = Configuration.fromJson(Fixtures.SANDBOX_CONFIGURATION_WITH_GRAPHQL);
+            configuration = Configuration.fromJSON(Fixtures.SANDBOX_CONFIGURATION_WITH_GRAPHQL);
         } else {
-            configuration = Configuration.fromJson(Fixtures.SANDBOX_CONFIGURATION_WITHOUT_GRAPHQL);
+            configuration = Configuration.fromJSON(Fixtures.SANDBOX_CONFIGURATION_WITHOUT_GRAPHQL);
         }
 
         Context context = ApplicationProvider.getApplicationContext();

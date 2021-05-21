@@ -14,7 +14,7 @@ public class ThreeDSecureV1BrowserSwitchHelperUnitTest {
 
     @Before
     public void setup() throws Exception {
-        threeDSecureLookup = ThreeDSecureLookup.fromJson("{\n" +
+        threeDSecureLookup = ThreeDSecureLookup.fromJSON("{\n" +
                 "\"acsUrl\": \"https://acs.com\",\n" +
                 "\"md\": \"m d\",\n" +
                 "\"termUrl\": \"https://terms.com\",\n" +

@@ -29,7 +29,7 @@ class SamsungPayConfiguration {
     private String samsungAuthorization;
     private String environment;
 
-    static SamsungPayConfiguration fromJson(JSONObject json) {
+    static SamsungPayConfiguration fromJSON(JSONObject json) {
         SamsungPayConfiguration configuration = new SamsungPayConfiguration();
 
         if (json == null) {

@@ -60,8 +60,8 @@ public class VenmoClientUnitTest {
         tokenizationClient = mock(TokenizationClient.class);
         deviceInspector = mock(DeviceInspector.class);
 
-        venmoEnabledConfiguration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_PAY_WITH_VENMO);
-        venmoDisabledConfiguration = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        venmoEnabledConfiguration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_PAY_WITH_VENMO);
+        venmoDisabledConfiguration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
         venmoTokenizeAccountCallback = mock(VenmoTokenizeAccountCallback.class);
         sharedPrefsWriter = mock(VenmoSharedPrefsWriter.class);
 

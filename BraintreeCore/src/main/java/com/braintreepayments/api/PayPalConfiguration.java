@@ -34,7 +34,7 @@ class PayPalConfiguration {
      * @return An {@link PayPalConfiguration} instance with data that was able to be parsed from
      *         the {@link JSONObject}.
      */
-    static PayPalConfiguration fromJson(JSONObject json) {
+    static PayPalConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

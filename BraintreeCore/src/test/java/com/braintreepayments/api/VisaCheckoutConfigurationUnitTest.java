@@ -20,7 +20,7 @@ import static junit.framework.Assert.assertTrue;
 public class VisaCheckoutConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("apikey", "sample-api-key")
                 .put("externalClientId", "sample-external-client-id")
@@ -30,7 +30,7 @@ public class VisaCheckoutConfigurationUnitTest {
                         .put("Discover")
                         .put("MasterCard"));
 
-        VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJson(input);
+        VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJSON(input);
         assertTrue(sut.isEnabled());
         assertEquals("sample-api-key", sut.getApiKey());
         assertEquals("sample-external-client-id", sut.getExternalClientId());
@@ -40,8 +40,8 @@ public class VisaCheckoutConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-        VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+        VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJSON(null);
         assertFalse(sut.isEnabled());
         assertEquals("", sut.getApiKey());
         assertEquals("", sut.getExternalClientId());
@@ -49,8 +49,8 @@ public class VisaCheckoutConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJSON(new JSONObject());
         assertFalse(sut.isEnabled());
         assertEquals("", sut.getApiKey());
         assertEquals("", sut.getExternalClientId());

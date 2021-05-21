@@ -48,7 +48,7 @@ public class VisaCheckoutClientUnitTest {
 
     @Before
     public void setup() throws Exception {
-        configurationWithVisaCheckout = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_VISA_CHECKOUT);
+        configurationWithVisaCheckout = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_VISA_CHECKOUT);
 
         visaPaymentSummary = PowerMockito.mock(VisaPaymentSummary.class);
         when(visaPaymentSummary.getCallId()).thenReturn("stubbedCallId");
@@ -92,7 +92,7 @@ public class VisaCheckoutClientUnitTest {
                 .build();
 
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(configString))
+                .configuration(Configuration.fromJSON(configString))
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 
@@ -123,7 +123,7 @@ public class VisaCheckoutClientUnitTest {
                 .build();
 
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
-                .configuration(Configuration.fromJson(configString))
+                .configuration(Configuration.fromJSON(configString))
                 .build();
         VisaCheckoutClient sut = new VisaCheckoutClient(braintreeClient, tokenizationClient);
 

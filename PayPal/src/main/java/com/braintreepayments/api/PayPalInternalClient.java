@@ -57,7 +57,7 @@ class PayPalInternalClient {
                                 PayPalResponse payPalResponse = new PayPalResponse(payPalRequest)
                                         .successUrl(successUrl);
 
-                                PayPalPaymentResource paypalPaymentResource = PayPalPaymentResource.fromJson(responseBody);
+                                PayPalPaymentResource paypalPaymentResource = PayPalPaymentResource.fromJSON(responseBody);
                                 String redirectUrl = paypalPaymentResource.getRedirectUrl();
                                 if (redirectUrl != null) {
                                     Uri parsedRedirectUri = Uri.parse(redirectUrl);

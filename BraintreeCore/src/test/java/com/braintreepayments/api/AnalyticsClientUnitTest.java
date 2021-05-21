@@ -73,7 +73,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void createAnalyticsWorkerRequest_returnsAnalyticsUploadWorkerWithDelay() throws JSONException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
         OneTimeWorkRequest result = AnalyticsClient.createAnalyticsWorkerRequest(configuration, authorization);
 
         WorkSpec workSpec = result.getWorkSpec();
@@ -86,7 +86,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void sendEvent_addsEventToAnalyticsDatabase() throws JSONException, InterruptedException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
         AnalyticsEvent event = new AnalyticsEvent(
                 context, "sessionId", "custom", "event.started", deviceInspector, classHelper);
 
@@ -106,7 +106,7 @@ public class AnalyticsClientUnitTest {
     public void sendEvent_setsLastKnownAnalyticsUrl() throws JSONException {
         when(httpClient.getAuthorization()).thenReturn(authorization);
 
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
         AnalyticsEvent event = new AnalyticsEvent(
                 context, "sessionId", "custom", "event.started", deviceInspector, classHelper);
 
@@ -118,7 +118,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void sendEventAndReturnId_enqueuesAnalyticsWorker() throws ExecutionException, InterruptedException, JSONException {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
         AnalyticsEvent event = new AnalyticsEvent(
                 context, "sessionId", "custom", "event.started", deviceInspector, classHelper);
 
@@ -133,7 +133,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void uploadAnalytics_whenNoEventsExist_doesNothing() throws Exception {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
 
         AnalyticsClient sut = new AnalyticsClient(httpClient, deviceInspector);
         sut.uploadAnalytics(context, configuration);
@@ -143,7 +143,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void uploadAnalytics_whenEventsExist_sendsCorrectMetaData() throws Exception {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
 
         when(deviceInspector.isPayPalInstalled(context)).thenReturn(true);
         when(deviceInspector.isVenmoInstalled(context)).thenReturn(true);
@@ -191,7 +191,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void uploadAnalytics_whenEventsExist_sendsAllEvents() throws Exception {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
 
         AnalyticsEvent one = new AnalyticsEvent(context, "sessionId", "custom", "started");
         AnalyticsEvent two = new AnalyticsEvent(context, "sessionId", "custom", "finished");
@@ -223,7 +223,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void uploadAnalytics_whenEventsExist_batchesUploadsBySessionId() throws Exception {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
 
         AnalyticsEvent one = new AnalyticsEvent(context, "sessionId", "custom", "started");
         AnalyticsEvent two = new AnalyticsEvent(context, "sessionIdTwo", "custom", "finished");
@@ -263,7 +263,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void uploadAnalytics_deletesDatabaseEventsOnSuccessResponse() throws Exception {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
 
         AnalyticsEvent one = new AnalyticsEvent(context, "sessionId", "custom", "started");
         AnalyticsEvent two = new AnalyticsEvent(context, "sessionId", "custom", "finished");
@@ -285,7 +285,7 @@ public class AnalyticsClientUnitTest {
 
     @Test
     public void uploadAnalytics_propagatesExceptionsOnError() throws Exception {
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_ANALYTICS);
 
         AnalyticsEvent one = new AnalyticsEvent(context, "sessionId", "custom", "started");
         AnalyticsEvent two = new AnalyticsEvent(context, "sessionId", "custom", "finished");

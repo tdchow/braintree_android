@@ -60,7 +60,7 @@ public class ThreeDSecureV1UnitTest {
         threeDSecureRequest.setBillingAddress(billingAddress);
 
         threeDSecureLookupResponse = Fixtures.THREE_D_SECURE_V1_LOOKUP_RESPONSE;
-        threeDSecureResult = ThreeDSecureResult.fromJson(threeDSecureLookupResponse);
+        threeDSecureResult = ThreeDSecureResult.fromJSON(threeDSecureLookupResponse);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ThreeDSecureV1UnitTest {
 
         ThreeDSecureClient sut = new ThreeDSecureClient(braintreeClient, cardinalClient, browserSwitchHelper);
 
-        ThreeDSecureResult threeDSecureResult = ThreeDSecureResult.fromJson(Fixtures.THREE_D_SECURE_V1_LOOKUP_RESPONSE);
+        ThreeDSecureResult threeDSecureResult = ThreeDSecureResult.fromJSON(Fixtures.THREE_D_SECURE_V1_LOOKUP_RESPONSE);
         sut.continuePerformVerification(activity, threeDSecureRequest, threeDSecureResult, mock(ThreeDSecureResultCallback.class));
 
         verify(braintreeClient).sendAnalyticsEvent("three-d-secure.verification-flow.3ds-version.1.0.2");

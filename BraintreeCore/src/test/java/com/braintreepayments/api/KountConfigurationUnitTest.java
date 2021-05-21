@@ -14,25 +14,25 @@ import static org.junit.Assert.assertFalse;
 public class KountConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("kountMerchantId", "123456");
 
-        KountConfiguration sut = KountConfiguration.fromJson(input);
+        KountConfiguration sut = KountConfiguration.fromJSON(input);
         assertTrue(sut.isEnabled());
         assertEquals("123456", sut.getKountMerchantId());
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-       KountConfiguration sut = KountConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+       KountConfiguration sut = KountConfiguration.fromJSON(null);
        assertFalse(sut.isEnabled());
        assertEquals("", sut.getKountMerchantId());
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        KountConfiguration sut = KountConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        KountConfiguration sut = KountConfiguration.fromJSON(new JSONObject());
         assertFalse(sut.isEnabled());
         assertEquals("", sut.getKountMerchantId());
     }

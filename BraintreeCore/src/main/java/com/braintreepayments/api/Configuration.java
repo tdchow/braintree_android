@@ -65,7 +65,7 @@ public class Configuration {
      * @param configurationString The json configuration string from Braintree.
      * @return {@link Configuration} instance.
      */
-    public static Configuration fromJson(@Nullable String configurationString) throws JSONException {
+    public static Configuration fromJSON(@Nullable String configurationString) throws JSONException {
         return new Configuration(configurationString);
     }
 
@@ -83,19 +83,19 @@ public class Configuration {
         environment = json.getString(ENVIRONMENT_KEY);
         merchantId = json.getString(MERCHANT_ID_KEY);
         merchantAccountId = Json.optString(json, MERCHANT_ACCOUNT_ID_KEY, null);
-        analyticsConfiguration = AnalyticsConfiguration.fromJson(json.optJSONObject(ANALYTICS_KEY));
-        braintreeApiConfiguration = BraintreeApiConfiguration.fromJson(json.optJSONObject(BRAINTREE_API_KEY));
-        cardConfiguration = CardConfiguration.fromJson(json.optJSONObject(CARD_KEY));
+        analyticsConfiguration = AnalyticsConfiguration.fromJSON(json.optJSONObject(ANALYTICS_KEY));
+        braintreeApiConfiguration = BraintreeApiConfiguration.fromJSON(json.optJSONObject(BRAINTREE_API_KEY));
+        cardConfiguration = CardConfiguration.fromJSON(json.optJSONObject(CARD_KEY));
         paypalEnabled = json.optBoolean(PAYPAL_ENABLED_KEY, false);
-        payPalConfiguration = PayPalConfiguration.fromJson(json.optJSONObject(PAYPAL_KEY));
-        googlePayConfiguration = GooglePayConfiguration.fromJson(json.optJSONObject(GOOGLE_PAY_KEY));
+        payPalConfiguration = PayPalConfiguration.fromJSON(json.optJSONObject(PAYPAL_KEY));
+        googlePayConfiguration = GooglePayConfiguration.fromJSON(json.optJSONObject(GOOGLE_PAY_KEY));
         threeDSecureEnabled = json.optBoolean(THREE_D_SECURE_ENABLED_KEY, false);
-        venmoConfiguration = VenmoConfiguration.fromJson(json.optJSONObject(PAY_WITH_VENMO_KEY));
-        kountConfiguration = KountConfiguration.fromJson(json.optJSONObject(KOUNT_KEY));
-        unionPayConfiguration = UnionPayConfiguration.fromJson(json.optJSONObject(UNIONPAY_KEY));
-        visaCheckoutConfiguration = VisaCheckoutConfiguration.fromJson(json.optJSONObject(VISA_CHECKOUT_KEY));
-        graphQLConfiguration = GraphQLConfiguration.fromJson(json.optJSONObject(GRAPHQL_KEY));
-        samsungPayConfiguration = SamsungPayConfiguration.fromJson(json.optJSONObject(SAMSUNG_PAY_KEY));
+        venmoConfiguration = VenmoConfiguration.fromJSON(json.optJSONObject(PAY_WITH_VENMO_KEY));
+        kountConfiguration = KountConfiguration.fromJSON(json.optJSONObject(KOUNT_KEY));
+        unionPayConfiguration = UnionPayConfiguration.fromJSON(json.optJSONObject(UNIONPAY_KEY));
+        visaCheckoutConfiguration = VisaCheckoutConfiguration.fromJSON(json.optJSONObject(VISA_CHECKOUT_KEY));
+        graphQLConfiguration = GraphQLConfiguration.fromJSON(json.optJSONObject(GRAPHQL_KEY));
+        samsungPayConfiguration = SamsungPayConfiguration.fromJSON(json.optJSONObject(SAMSUNG_PAY_KEY));
         cardinalAuthenticationJwt = Json.optString(json, CARDINAL_AUTHENTICATION_JWT, null);
     }
 

@@ -43,7 +43,7 @@ public class BinData implements Parcelable {
     private String countryOfIssuance;
     private String productId;
 
-    protected static BinData fromJson(JSONObject json) {
+    protected static BinData fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

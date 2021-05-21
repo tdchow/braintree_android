@@ -9,7 +9,7 @@ class UnionPayConfiguration {
 
     private boolean enabled;
 
-    static UnionPayConfiguration fromJson(JSONObject json) {
+    static UnionPayConfiguration fromJSON(JSONObject json) {
         if (json == null) {
             json = new JSONObject();
         }

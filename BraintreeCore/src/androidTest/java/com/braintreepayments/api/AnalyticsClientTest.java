@@ -42,7 +42,7 @@ public class AnalyticsClientTest {
     @Test(timeout = 10000)
     public void sendsCorrectlyFormattedAnalyticsRequestToSandbox() throws Exception {
         Authorization authorization = Authorization.fromString(Fixtures.TOKENIZATION_KEY);
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_SANDBOX_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_SANDBOX_ANALYTICS);
 
         Context context = activity.getApplicationContext();
         AnalyticsEvent event = new AnalyticsEvent(
@@ -64,7 +64,7 @@ public class AnalyticsClientTest {
     @Test(timeout = 10000)
     public void sendsCorrectlyFormattedAnalyticsRequestToProd() throws Exception {
         Authorization authorization = Authorization.fromString(Fixtures.PROD_TOKENIZATION_KEY);
-        Configuration configuration = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_PROD_ANALYTICS);
+        Configuration configuration = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_PROD_ANALYTICS);
 
         Context context = activity.getApplicationContext();
         AnalyticsEvent event = new AnalyticsEvent(

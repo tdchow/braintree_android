@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class SamsungPayConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("displayName", "sample display name")
                 .put("serviceId", "sample-service-id")
@@ -33,7 +33,7 @@ public class SamsungPayConfigurationUnitTest {
                         .put("mastercard")
                         .put("visa")
                 );
-        SamsungPayConfiguration sut = SamsungPayConfiguration.fromJson(input);
+        SamsungPayConfiguration sut = SamsungPayConfiguration.fromJSON(input);
 
         assertTrue(sut.isEnabled());
         assertEquals("sample display name", sut.getMerchantDisplayName());
@@ -47,8 +47,8 @@ public class SamsungPayConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-        SamsungPayConfiguration sut = SamsungPayConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+        SamsungPayConfiguration sut = SamsungPayConfiguration.fromJSON(null);
         assertFalse(sut.isEnabled());
         assertEquals("", sut.getEnvironment());
         assertEquals("", sut.getMerchantDisplayName());
@@ -58,8 +58,8 @@ public class SamsungPayConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        SamsungPayConfiguration sut = SamsungPayConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        SamsungPayConfiguration sut = SamsungPayConfiguration.fromJSON(new JSONObject());
         assertFalse(sut.isEnabled());
         assertEquals("", sut.getEnvironment());
         assertEquals("", sut.getMerchantDisplayName());

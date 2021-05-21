@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class CardConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("collectDeviceData", true)
                 .put("supportedCardTypes", new JSONArray()
@@ -24,7 +24,7 @@ public class CardConfigurationUnitTest {
                         .put("JCB")
                         .put("MasterCard")
                         .put("Visa"));
-        CardConfiguration sut = CardConfiguration.fromJson(input);
+        CardConfiguration sut = CardConfiguration.fromJSON(input);
 
         assertTrue(sut.isFraudDataCollectionEnabled());
         assertEquals(5, sut.getSupportedCardTypes().size());
@@ -36,15 +36,15 @@ public class CardConfigurationUnitTest {
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-        CardConfiguration sut = CardConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+        CardConfiguration sut = CardConfiguration.fromJSON(null);
         assertFalse(sut.isFraudDataCollectionEnabled());
         assertEquals(0, sut.getSupportedCardTypes().size());
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        CardConfiguration sut = CardConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        CardConfiguration sut = CardConfiguration.fromJSON(new JSONObject());
         assertFalse(sut.isFraudDataCollectionEnabled());
         assertEquals(0, sut.getSupportedCardTypes().size());
     }

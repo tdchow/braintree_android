@@ -225,7 +225,7 @@ public class GooglePayClient {
                         .getJSONObject("paymentMethodData")
                         .getJSONObject("tokenizationData")
                         .getString("token");
-                callback.onResult(null, ErrorWithResponse.fromJson(token));
+                callback.onResult(null, ErrorWithResponse.fromJSON(token));
             } catch (JSONException | NullPointerException e1) {
                 callback.onResult(null, e1);
             }

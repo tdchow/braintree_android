@@ -18,7 +18,7 @@ public class BraintreeErrorUnitTest {
     @Test
     public void parcelsCorrectly() throws JSONException {
         JSONObject errorResponse = new JSONObject(Fixtures.ERRORS_CREDIT_CARD_ERROR_RESPONSE);
-        List<BraintreeError> errors = BraintreeError.fromJsonArray(errorResponse.getJSONArray("fieldErrors"));
+        List<BraintreeError> errors = BraintreeError.fromJSONArray(errorResponse.getJSONArray("fieldErrors"));
         assertEquals(1, errors.size());
         BraintreeError error = errors.get(0);
 
@@ -36,7 +36,7 @@ public class BraintreeErrorUnitTest {
     @Test
     public void graphQLErrors_parcelCorrectly() throws Exception {
         JSONObject errorResponse = new JSONObject(Fixtures.ERRORS_GRAPHQL_CREDIT_CARD_ERROR);
-        List<BraintreeError> errors = BraintreeError.fromGraphQLJsonArray(errorResponse.getJSONArray("errors"));
+        List<BraintreeError> errors = BraintreeError.fromGraphQLJSONArray(errorResponse.getJSONArray("errors"));
         assertEquals(1, errors.size());
         BraintreeError error = errors.get(0);
 

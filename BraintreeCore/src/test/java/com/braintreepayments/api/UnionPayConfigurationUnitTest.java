@@ -13,23 +13,23 @@ import static junit.framework.Assert.assertTrue;
 public class UnionPayConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("enabled", true);
 
-        UnionPayConfiguration sut = UnionPayConfiguration.fromJson(input);
+        UnionPayConfiguration sut = UnionPayConfiguration.fromJSON(input);
         assertTrue(sut.isEnabled());
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-        UnionPayConfiguration sut = UnionPayConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+        UnionPayConfiguration sut = UnionPayConfiguration.fromJSON(null);
         assertFalse(sut.isEnabled());
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        UnionPayConfiguration sut = UnionPayConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        UnionPayConfiguration sut = UnionPayConfiguration.fromJSON(new JSONObject());
         assertFalse(sut.isEnabled());
     }
 }

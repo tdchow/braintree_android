@@ -15,25 +15,25 @@ import static junit.framework.Assert.assertTrue;
 public class AnalyticsConfigurationUnitTest {
 
     @Test
-    public void fromJson_parsesFullInput() throws JSONException {
+    public void fromJSON_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("url", "https://example.com/analytics");
 
-        AnalyticsConfiguration sut = AnalyticsConfiguration.fromJson(input);
+        AnalyticsConfiguration sut = AnalyticsConfiguration.fromJSON(input);
         assertTrue(sut.isEnabled());
         assertEquals("https://example.com/analytics", sut.getUrl());
     }
 
     @Test
-    public void fromJson_whenInputNull_returnsConfigWithDefaultValues() {
-        AnalyticsConfiguration sut = AnalyticsConfiguration.fromJson(null);
+    public void fromJSON_whenInputNull_returnsConfigWithDefaultValues() {
+        AnalyticsConfiguration sut = AnalyticsConfiguration.fromJSON(null);
         assertFalse(sut.isEnabled());
         assertNull(sut.getUrl());
     }
 
     @Test
-    public void fromJson_whenInputEmpty_returnsConfigWithDefaultValues() {
-        AnalyticsConfiguration sut = AnalyticsConfiguration.fromJson(new JSONObject());
+    public void fromJSON_whenInputEmpty_returnsConfigWithDefaultValues() {
+        AnalyticsConfiguration sut = AnalyticsConfiguration.fromJSON(new JSONObject());
         assertFalse(sut.isEnabled());
         assertNull(sut.getUrl());
     }

@@ -37,8 +37,8 @@ public class TokenizationClientUnitTest {
     public void beforeEach() throws JSONException {
         context = ApplicationProvider.getApplicationContext();
 
-        graphQLEnabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITH_GRAPHQL);
-        graphQLDisabledConfig = Configuration.fromJson(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
+        graphQLEnabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITH_GRAPHQL);
+        graphQLDisabledConfig = Configuration.fromJSON(Fixtures.CONFIGURATION_WITHOUT_ACCESS_TOKEN);
     }
 
     @Test
@@ -148,7 +148,7 @@ public class TokenizationClientUnitTest {
     public void tokenizeGraphQL_sendGraphQLAnalyticsEventOnFailure() throws BraintreeException, JSONException {
         BraintreeClient braintreeClient = new MockBraintreeClientBuilder()
                 .configuration(graphQLEnabledConfig)
-                .sendGraphQLPOSTErrorResponse(ErrorWithResponse.fromGraphQLJson(Fixtures.ERRORS_GRAPHQL_CREDIT_CARD_ERROR))
+                .sendGraphQLPOSTErrorResponse(ErrorWithResponse.fromGraphQLJSON(Fixtures.ERRORS_GRAPHQL_CREDIT_CARD_ERROR))
                 .build();
 
         Card card = new Card();

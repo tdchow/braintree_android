@@ -15,7 +15,7 @@ public class PayPalPaymentResourceUnitTest {
                         .put("redirectUrl", "www.example.com/redirect")
                 ).toString();
 
-        PayPalPaymentResource sut = PayPalPaymentResource.fromJson(oneTimePaymentJson);
+        PayPalPaymentResource sut = PayPalPaymentResource.fromJSON(oneTimePaymentJson);
         assertEquals("www.example.com/redirect", sut.getRedirectUrl());
     }
 
@@ -26,7 +26,7 @@ public class PayPalPaymentResourceUnitTest {
                         .put("approvalUrl", "www.example.com/redirect")
                 ).toString();
 
-        PayPalPaymentResource sut = PayPalPaymentResource.fromJson(billingAgreementJson);
+        PayPalPaymentResource sut = PayPalPaymentResource.fromJSON(billingAgreementJson);
         assertEquals("www.example.com/redirect", sut.getRedirectUrl());
     }
 }
