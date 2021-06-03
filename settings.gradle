@@ -1,3 +1,4 @@
+include ':CardKtx'
 include ':SamsungPay'
 include ':VisaCheckout'
 include ':GooglePay'
