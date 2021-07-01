@@ -3,6 +3,8 @@ package com.braintreepayments.demo;
 import android.content.Context;
 
 import com.braintreepayments.api.PayPalCheckoutRequest;
+import com.braintreepayments.api.PayPalNativeCheckoutRequest;
+import com.braintreepayments.api.PayPalNativeVaultRequest;
 import com.braintreepayments.api.PayPalPaymentIntent;
 import com.braintreepayments.api.PayPalRequest;
 import com.braintreepayments.api.PayPalVaultRequest;
@@ -28,23 +30,50 @@ public class PayPalRequestFactory {
         }
 
         if (Settings.usePayPalAddressOverride(context)) {
-            PostalAddress postalAddress = new PostalAddress();
-            postalAddress.setRecipientName("Brian Tree");
-            postalAddress.setStreetAddress("123 Fake Street");
-            postalAddress.setExtendedAddress("Floor A");
-            postalAddress.setLocality("San Francisco");
-            postalAddress.setRegion("CA");
-            postalAddress.setCountryCodeAlpha2("US");
-
+            PostalAddress postalAddress = getShippingAddress();
             request.setShippingAddressOverride(postalAddress);
         }
 
         return request;
     }
 
+    public static PayPalNativeVaultRequest createPayPalNativeVaultRequest(Context context) {
+        PayPalNativeVaultRequest request = new PayPalNativeVaultRequest();
+
+        request.setDisplayName(Settings.getPayPalDisplayName(context));
+
+        String landingPageType = Settings.getPayPalLandingPageType(context);
+        if (context.getString(R.string.paypal_landing_page_type_billing).equals(landingPageType)) {
+            request.setLandingPageType(PayPalRequest.LANDING_PAGE_TYPE_BILLING);
+        } else if (context.getString(R.string.paypal_landing_page_type_login).equals(landingPageType)) {
+            request.setLandingPageType(PayPalRequest.LANDING_PAGE_TYPE_LOGIN);
+        }
+
+        if (Settings.isPayPalCreditOffered(context)) {
+            request.setShouldOfferCredit(true);
+        }
+
+        if (Settings.usePayPalAddressOverride(context)) {
+            PostalAddress postalAddress = getShippingAddress();
+            request.setShippingAddressOverride(postalAddress);
+        }
+
+        return request;
+    }
+
+    public static PayPalNativeCheckoutRequest createPayPalNativeCheckoutRequest(Context context, String amount) {
+        PayPalNativeCheckoutRequest request = new PayPalNativeCheckoutRequest(amount);
+        populateRequest(context, request);
+        return request;
+    }
+
     public static PayPalCheckoutRequest createPayPalCheckoutRequest(Context context, String amount) {
         PayPalCheckoutRequest request = new PayPalCheckoutRequest(amount);
+        populateRequest(context, request);
+        return request;
+    }
 
+    private static void populateRequest(final Context context, final PayPalCheckoutRequest request) {
         request.setDisplayName(Settings.getPayPalDisplayName(context));
 
         String landingPageType = Settings.getPayPalLandingPageType(context);
@@ -68,17 +97,21 @@ public class PayPalRequestFactory {
         }
 
         if (Settings.usePayPalAddressOverride(context)) {
-            PostalAddress shippingAddress = new PostalAddress();
-            shippingAddress.setRecipientName("Brian Tree");
-            shippingAddress.setStreetAddress("123 Fake Street");
-            shippingAddress.setExtendedAddress("Floor A");
-            shippingAddress.setLocality("San Francisco");
-            shippingAddress.setRegion("CA");
-            shippingAddress.setCountryCodeAlpha2("US");
-
+            PostalAddress shippingAddress = getShippingAddress();
             request.setShippingAddressOverride(shippingAddress);
+            request.setShippingAddressEditable(true);
         }
+    }
 
-        return request;
+    private static PostalAddress getShippingAddress() {
+        PostalAddress shippingAddress = new PostalAddress();
+        shippingAddress.setRecipientName("Brian Tree");
+        shippingAddress.setStreetAddress("123 Fake Street");
+        shippingAddress.setExtendedAddress("Floor A");
+        shippingAddress.setLocality("San Francisco");
+        shippingAddress.setRegion("CA");
+        shippingAddress.setCountryCodeAlpha2("US");
+        shippingAddress.setPostalCode("94110");
+        return shippingAddress;
     }
 }
