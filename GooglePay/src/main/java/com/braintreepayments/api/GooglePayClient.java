@@ -18,6 +18,7 @@ import com.google.android.gms.wallet.PaymentData;
 import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentMethodTokenizationParameters;
 import com.google.android.gms.wallet.PaymentsClient;
+import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
 
 import org.json.JSONArray;
@@ -208,12 +209,19 @@ public class GooglePayClient {
 
                 braintreeClient.sendAnalyticsEvent("google-payment.started");
 
-                PaymentDataRequest paymentDataRequest = PaymentDataRequest.fromJson(request.toJson());
-                Intent intent = new Intent(activity, GooglePayActivity.class)
-                        .putExtra(EXTRA_ENVIRONMENT, getGooglePayEnvironment(configuration))
-                        .putExtra(EXTRA_PAYMENT_DATA_REQUEST, paymentDataRequest);
+                PaymentsClient paymentsClient = Wallet.getPaymentsClient(activity, new Wallet.WalletOptions.Builder()
+                        .setEnvironment(getGooglePayEnvironment(configuration))
+                        .build());
 
-                activity.startActivityForResult(intent, BraintreeRequestCodes.GOOGLE_PAY);
+                PaymentDataRequest paymentDataRequest = PaymentDataRequest.fromJson(request.toJson());
+                AutoResolveHelper.resolveTask(paymentsClient.loadPaymentData(paymentDataRequest), activity, BraintreeRequestCodes.GOOGLE_PAY);
+
+//                PaymentDataRequest paymentDataRequest = PaymentDataRequest.fromJson(request.toJson());
+//                Intent intent = new Intent(activity, GooglePayActivity.class)
+//                        .putExtra(EXTRA_ENVIRONMENT, getGooglePayEnvironment(configuration))
+//                        .putExtra(EXTRA_PAYMENT_DATA_REQUEST, paymentDataRequest);
+//
+//                activity.startActivityForResult(intent, BraintreeRequestCodes.GOOGLE_PAY);
             }
         });
 

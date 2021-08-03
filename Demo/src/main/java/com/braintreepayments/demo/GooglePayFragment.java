@@ -115,7 +115,11 @@ public class GooglePayFragment extends BaseFragment {
         int resultCode = activityResult.getResultCode();
         Intent data = activityResult.getData();
         googlePayClient.onActivityResult(resultCode, data, (paymentMethodNonce, error) -> {
-            handleGooglePayActivityResult(paymentMethodNonce);
+            if (paymentMethodNonce != null) {
+                handleGooglePayActivityResult(paymentMethodNonce);
+            } else {
+                handleError(error);
+            }
         });
     }
 
