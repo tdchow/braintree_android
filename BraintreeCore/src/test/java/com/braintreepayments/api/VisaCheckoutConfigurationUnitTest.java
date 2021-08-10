@@ -23,6 +23,7 @@ public class VisaCheckoutConfigurationUnitTest {
     public void fromJson_parsesFullInput() throws JSONException {
         JSONObject input = new JSONObject()
                 .put("apikey", "sample-api-key")
+                .put("encryptionKey", "sample-encryption-key")
                 .put("externalClientId", "sample-external-client-id")
                 .put("supportedCardTypes", new JSONArray()
                         .put("American Express")
@@ -33,6 +34,7 @@ public class VisaCheckoutConfigurationUnitTest {
         VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJson(input);
         assertTrue(sut.isEnabled());
         assertEquals("sample-api-key", sut.getApiKey());
+        assertEquals("sample-encryption-key", sut.getEncryptionKey());
         assertEquals("sample-external-client-id", sut.getExternalClientId());
 
         List<String> expectedCardBrands = Arrays.asList("AMEX", "VISA", "DISCOVER", "MASTERCARD");
@@ -44,6 +46,7 @@ public class VisaCheckoutConfigurationUnitTest {
         VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJson(null);
         assertFalse(sut.isEnabled());
         assertEquals("", sut.getApiKey());
+        assertEquals("", sut.getEncryptionKey());
         assertEquals("", sut.getExternalClientId());
         assertTrue(sut.getAcceptedCardBrands().isEmpty());
     }
@@ -53,6 +56,7 @@ public class VisaCheckoutConfigurationUnitTest {
         VisaCheckoutConfiguration sut = VisaCheckoutConfiguration.fromJson(new JSONObject());
         assertFalse(sut.isEnabled());
         assertEquals("", sut.getApiKey());
+        assertEquals("", sut.getEncryptionKey());
         assertEquals("", sut.getExternalClientId());
         assertTrue(sut.getAcceptedCardBrands().isEmpty());
     }

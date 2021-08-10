@@ -68,6 +68,7 @@ public class VisaCheckoutClient {
                 }
 
                 String merchantApiKey = configuration.getVisaCheckoutApiKey();
+                String encryptionKey = configuration.getVisaCheckoutEncryptionKey();
                 List<String> acceptedCardBrands = configuration.getVisaCheckoutSupportedNetworks();
                 String environment = Environment.SANDBOX;
 
@@ -76,6 +77,7 @@ public class VisaCheckoutClient {
                 }
 
                 Profile.ProfileBuilder profileBuilder = new Profile.ProfileBuilder(merchantApiKey, environment);
+                // TODO: what to do with encryptionKey?
                 profileBuilder.setCardBrands(acceptedCardBrands.toArray(new String[acceptedCardBrands.size()]));
                 profileBuilder.setDataLevel(Profile.DataLevel.FULL);
                 profileBuilder.setExternalClientId(configuration.getVisaCheckoutExternalClientId());

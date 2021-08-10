@@ -386,6 +386,11 @@ public class TestConfigurationBuilder extends JSONBuilder {
             return this;
         }
 
+        public TestVisaCheckoutConfigurationBuilder encryptionKey(String encryptionKey) {
+            put(encryptionKey);
+            return this;
+        }
+
         public TestVisaCheckoutConfigurationBuilder externalClientId(String externalClientId) {
             put(externalClientId);
             return this;

@@ -376,14 +376,21 @@ public class Configuration {
     }
 
     /**
-     * @return the Visa Checkout API key configured in the Braintree Control Panel.
+     * @return the Visa Checkout API key.
      */
     String getVisaCheckoutApiKey() {
         return visaCheckoutConfiguration.getApiKey();
     }
 
     /**
-     * @return the Visa Checkout External Client ID configured in the Braintree Control Panel.
+     * @return the Visa Checkout encryption key.
+     */
+    String getVisaCheckoutEncryptionKey() {
+        return visaCheckoutConfiguration.getEncryptionKey();
+    }
+
+    /**
+     * @return the Visa Checkout External Client ID.
      */
     String getVisaCheckoutExternalClientId() {
         return visaCheckoutConfiguration.getExternalClientId();

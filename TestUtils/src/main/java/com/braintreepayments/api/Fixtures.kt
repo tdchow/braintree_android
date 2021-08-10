@@ -904,6 +904,7 @@ object Fixtures {
           },
           "visaCheckout": {
             "apikey": "gwApikey",
+            "encryptionKey": "gwEncryptionKey",
             "externalClientId": "gwExternalClientId",
             "supportedCardTypes": [
               "American Express",

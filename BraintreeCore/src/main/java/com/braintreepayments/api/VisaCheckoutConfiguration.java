@@ -13,6 +13,7 @@ class VisaCheckoutConfiguration {
 
     private boolean isEnabled;
     private String apiKey;
+    private String encryptionKey;
     private String externalClientId;
     private List<String> cardBrands;
 
@@ -24,6 +25,7 @@ class VisaCheckoutConfiguration {
         }
 
         visaCheckoutConfiguration.apiKey = Json.optString(json, "apikey", "");
+        visaCheckoutConfiguration.encryptionKey = Json.optString(json, "encryptionKey", "");
         visaCheckoutConfiguration.isEnabled = !visaCheckoutConfiguration.apiKey.equals("");
         visaCheckoutConfiguration.externalClientId = Json.optString(json, "externalClientId", "");
         visaCheckoutConfiguration.cardBrands = supportedCardTypesToAcceptedCardBrands(
@@ -50,10 +52,17 @@ class VisaCheckoutConfiguration {
     }
 
     /**
-     * @return The Visa Checkout API Key associated with this merchant's Visa Checkout configuration.
+     * @return The Visa Checkout API Key.
      */
     String getApiKey() {
         return apiKey;
+    }
+
+    /**
+     * @return The Visa Checkout Encryption Key.
+     */
+    String getEncryptionKey() {
+        return encryptionKey;
     }
 
     /**

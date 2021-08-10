@@ -87,6 +87,7 @@ public class VisaCheckoutClientUnitTest {
                 .environment("production")
                 .visaCheckout(new TestConfigurationBuilder.TestVisaCheckoutConfigurationBuilder()
                         .apikey("gwApiKey")
+                        .encryptionKey("gwEncryptionKey")
                         .supportedCardTypes(CardBrand.VISA, CardBrand.MASTERCARD)
                         .externalClientId("gwExternalClientId"))
                 .build();
@@ -118,6 +119,7 @@ public class VisaCheckoutClientUnitTest {
                 .environment("environment")
                 .visaCheckout(new TestConfigurationBuilder.TestVisaCheckoutConfigurationBuilder()
                         .apikey("gwApiKey")
+                        .encryptionKey("gwEncryptionKey")
                         .supportedCardTypes(CardBrand.VISA, CardBrand.MASTERCARD)
                         .externalClientId("gwExternalClientId"))
                 .build();
