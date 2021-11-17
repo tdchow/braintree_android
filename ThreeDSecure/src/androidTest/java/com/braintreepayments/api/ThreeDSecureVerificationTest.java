@@ -172,7 +172,7 @@ public class ThreeDSecureVerificationTest {
     public void performVerification_doesALookupAndReturnsACardWhenThereIsALookupError() throws InterruptedException, InvalidArgumentException {
         final Card card = new Card();
         card.setNumber(THREE_D_SECURE_LOOKUP_ERROR);
-        card.setExpirationDate("12/20");
+        card.setExpirationDate("01/23");
 
         BraintreeClient braintreeClient = getBraintreeClient();
         CardClient cardClient = new CardClient(braintreeClient);
