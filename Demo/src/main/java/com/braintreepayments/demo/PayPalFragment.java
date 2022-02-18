@@ -92,7 +92,7 @@ public class PayPalFragment extends BaseFragment {
             public void run() {
 
                 try {
-                    String result = httpClient.post("merchants/dcpspy2brwdjr3qn/client_api/testing/setup", "{}", null, Authorization.fromString("sandbox_tmxhyf7d_dcpspy2brwdjr3qn"));
+                    String result = httpClient.post("merchants/pwpp_multi_account_merchant/client_api/testing/setup", "{}", null, Authorization.fromString("development_testing_pwpp_multi_account_merchant"));
                     Log.d("RESULT", result);
                 } catch (Exception e) {
                     e.printStackTrace();

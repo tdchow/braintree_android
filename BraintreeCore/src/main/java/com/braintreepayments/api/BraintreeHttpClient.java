@@ -150,7 +150,7 @@ public class BraintreeHttpClient {
 //        if (isRelativeURL && configuration != null) {
 //            request.baseUrl(configuration.getClientApiUrl());
 //        }
-        request.baseUrl("http://10.0.2.2:3099");
+        request.baseUrl("https://10.0.2.2:3099");
 
         if (authorization instanceof TokenizationKey) {
             request.addHeader(CLIENT_KEY_HEADER, authorization.getBearer());
@@ -198,7 +198,7 @@ public class BraintreeHttpClient {
 //        if (isRelativeURL && configuration != null) {
 //            request.baseUrl(configuration.getClientApiUrl());
 //        }
-        request.baseUrl("https://10.0.2.2:3099/sandbox");
+        request.baseUrl("http://10.0.2.2:3099/");
 
         if (authorization instanceof TokenizationKey) {
             request.addHeader(CLIENT_KEY_HEADER, authorization.getBearer());
