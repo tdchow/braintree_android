@@ -1,6 +1,7 @@
 package com.braintreepayments.demo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,14 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.braintreepayments.api.Authorization;
 import com.braintreepayments.api.BraintreeClient;
+import com.braintreepayments.api.BraintreeHttpClient;
 import com.braintreepayments.api.PaymentMethodNonce;
 import com.braintreepayments.api.BrowserSwitchResult;
 import com.braintreepayments.api.DataCollector;
 import com.braintreepayments.api.PayPalClient;
+import com.braintreepayments.api.ThreadScheduler;
 
 import static com.braintreepayments.demo.PayPalRequestFactory.createPayPalCheckoutRequest;
 import static com.braintreepayments.demo.PayPalRequestFactory.createPayPalVaultRequest;
@@ -55,31 +59,47 @@ public class PayPalFragment extends BaseFragment {
     }
 
     private void launchPayPal(boolean isBillingAgreement) {
-        FragmentActivity activity = getActivity();
-        activity.setProgressBarIndeterminateVisibility(true);
+//        FragmentActivity activity = getActivity();
+//        activity.setProgressBarIndeterminateVisibility(true);
+//
+//        BraintreeClient braintreeClient = getBraintreeClient();
+//        payPalClient = new PayPalClient(braintreeClient);
+//        dataCollector = new DataCollector(braintreeClient);
+//
+//        braintreeClient.getConfiguration((configuration, configError) -> {
+//            if (getActivity().getIntent().getBooleanExtra(MainFragment.EXTRA_COLLECT_DEVICE_DATA, false)) {
+//                dataCollector.collectDeviceData(activity, (deviceData, dataCollectorError) -> this.deviceData = deviceData);
+//            }
+//            if (isBillingAgreement) {
+//                payPalClient.tokenizePayPalAccount(activity, createPayPalVaultRequest(activity), payPalError -> {
+//                    if (payPalError != null) {
+//                        handleError(payPalError);
+//                    }
+//                });
+//            } else {
+//                payPalClient.tokenizePayPalAccount(activity, createPayPalCheckoutRequest(activity, "1.00"), payPalError -> {
+//                    if (payPalError != null) {
+//                        handleError(payPalError);
+//                    }
+//                });
+//            }
+//        });
 
-        BraintreeClient braintreeClient = getBraintreeClient();
-        payPalClient = new PayPalClient(braintreeClient);
-        dataCollector = new DataCollector(braintreeClient);
+        BraintreeHttpClient httpClient = new BraintreeHttpClient();
+        ThreadScheduler scheduler = new ThreadScheduler();
+        scheduler.runOnBackground(new Runnable() {
+            @Override
+            public void run() {
 
-        braintreeClient.getConfiguration((configuration, configError) -> {
-            if (getActivity().getIntent().getBooleanExtra(MainFragment.EXTRA_COLLECT_DEVICE_DATA, false)) {
-                dataCollector.collectDeviceData(activity, (deviceData, dataCollectorError) -> this.deviceData = deviceData);
-            }
-            if (isBillingAgreement) {
-                payPalClient.tokenizePayPalAccount(activity, createPayPalVaultRequest(activity), payPalError -> {
-                    if (payPalError != null) {
-                        handleError(payPalError);
-                    }
-                });
-            } else {
-                payPalClient.tokenizePayPalAccount(activity, createPayPalCheckoutRequest(activity, "1.00"), payPalError -> {
-                    if (payPalError != null) {
-                        handleError(payPalError);
-                    }
-                });
+                try {
+                    String result = httpClient.post("merchants/dcpspy2brwdjr3qn/client_api/testing/setup", "{}", null, Authorization.fromString("sandbox_tmxhyf7d_dcpspy2brwdjr3qn"));
+                    Log.d("RESULT", result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+
     }
 
     private void handlePayPalResult(PaymentMethodNonce paymentMethodNonce, Exception error) {

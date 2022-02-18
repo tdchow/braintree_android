@@ -15,7 +15,7 @@ import javax.net.ssl.SSLSocketFactory;
 /**
  * Network request class that handles Braintree request specifics and threading.
  */
-class BraintreeHttpClient {
+public class BraintreeHttpClient {
 
     private static final String AUTHORIZATION_FINGERPRINT_KEY = "authorizationFingerprint";
     private static final String USER_AGENT_HEADER = "User-Agent";
@@ -23,7 +23,7 @@ class BraintreeHttpClient {
 
     private final HttpClient httpClient;
 
-    BraintreeHttpClient() {
+    public BraintreeHttpClient() {
         this(new HttpClient(getSocketFactory(), new BraintreeHttpResponseParser()));
     }
 
@@ -111,7 +111,7 @@ class BraintreeHttpClient {
      * @param authorization
      * @param callback {@link HttpResponseCallback}
      */
-    void post(String path, String data, Configuration configuration, Authorization authorization, HttpResponseCallback callback) {
+    public void post(String path, String data, Configuration configuration, Authorization authorization, HttpResponseCallback callback) {
         if (authorization instanceof InvalidAuthorization) {
             String message = ((InvalidAuthorization) authorization).getErrorMessage();
             callback.onResult(null, new BraintreeException(message));
@@ -147,9 +147,10 @@ class BraintreeHttpClient {
                 .data(requestData)
                 .addHeader(USER_AGENT_HEADER, "braintree/android/" + BuildConfig.VERSION_NAME);
 
-        if (isRelativeURL && configuration != null) {
-            request.baseUrl(configuration.getClientApiUrl());
-        }
+//        if (isRelativeURL && configuration != null) {
+//            request.baseUrl(configuration.getClientApiUrl());
+//        }
+        request.baseUrl("http://10.0.2.2:3099");
 
         if (authorization instanceof TokenizationKey) {
             request.addHeader(CLIENT_KEY_HEADER, authorization.getBearer());
@@ -166,17 +167,17 @@ class BraintreeHttpClient {
      * @param authorization
      * @return the HTTP response body
      */
-    String post(String path, String data, Configuration configuration, Authorization authorization) throws Exception {
+    public String post(String path, String data, Configuration configuration, Authorization authorization) throws Exception {
         if (authorization instanceof InvalidAuthorization) {
             String message = ((InvalidAuthorization) authorization).getErrorMessage();
             throw new BraintreeException(message);
         }
 
         boolean isRelativeURL = !path.startsWith("http");
-        if (configuration == null && isRelativeURL) {
-            String message = "Braintree HTTP GET request without configuration cannot have a relative path.";
-            throw new BraintreeException(message);
-        }
+//        if (configuration == null && isRelativeURL) {
+//            String message = "Braintree HTTP GET request without configuration cannot have a relative path.";
+//            throw new BraintreeException(message);
+//        }
 
         String requestData;
         if (authorization instanceof ClientToken) {
@@ -194,9 +195,10 @@ class BraintreeHttpClient {
                 .data(requestData)
                 .addHeader(USER_AGENT_HEADER, "braintree/android/" + BuildConfig.VERSION_NAME);
 
-        if (isRelativeURL && configuration != null) {
-            request.baseUrl(configuration.getClientApiUrl());
-        }
+//        if (isRelativeURL && configuration != null) {
+//            request.baseUrl(configuration.getClientApiUrl());
+//        }
+        request.baseUrl("https://10.0.2.2:3099/sandbox");
 
         if (authorization instanceof TokenizationKey) {
             request.addHeader(CLIENT_KEY_HEADER, authorization.getBearer());

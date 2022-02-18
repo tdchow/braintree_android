@@ -8,12 +8,12 @@ import androidx.annotation.VisibleForTesting;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-class ThreadScheduler implements Scheduler {
+public class ThreadScheduler implements Scheduler {
 
     private final Handler mainThreadHandler;
     private final ExecutorService backgroundThreadService;
 
-    ThreadScheduler() {
+    public ThreadScheduler() {
         this(new Handler(Looper.getMainLooper()), Executors.newCachedThreadPool());
     }
 

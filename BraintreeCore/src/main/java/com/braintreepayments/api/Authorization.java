@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 /**
  * Generic base class for Braintree authorization
  */
-abstract class Authorization {
+public abstract class Authorization {
 
     private final String rawValue;
 
@@ -24,7 +24,7 @@ abstract class Authorization {
      * @param authorizationString Given string to transform into an {@link Authorization}.
      * @return {@link Authorization}
      */
-    static Authorization fromString(@Nullable String authorizationString) {
+    public static Authorization fromString(@Nullable String authorizationString) {
         try {
             if (isTokenizationKey(authorizationString)) {
                 return new TokenizationKey(authorizationString);
