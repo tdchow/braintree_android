@@ -25,6 +25,8 @@ import com.braintreepayments.api.ThreadScheduler;
 import static com.braintreepayments.demo.PayPalRequestFactory.createPayPalCheckoutRequest;
 import static com.braintreepayments.demo.PayPalRequestFactory.createPayPalVaultRequest;
 
+import org.json.JSONObject;
+
 public class PayPalFragment extends BaseFragment {
 
     private String deviceData;
@@ -92,7 +94,26 @@ public class PayPalFragment extends BaseFragment {
             public void run() {
 
                 try {
-                    String result = httpClient.post("merchants/pwpp_multi_account_merchant/client_api/testing/setup", "{}", null, Authorization.fromString("development_testing_pwpp_multi_account_merchant"));
+                    JSONObject billingAddress = new JSONObject()
+                            .put("address_line_1", "Kantstraße 70")
+                            .put("address_line_2", "#170")
+                            .put("admin_area_1", "Freistaat Sachsen")
+                            .put("admin_area_2", "Annaberg-buchholz")
+                            .put("postal_code", "09456")
+                            .put("country_code", "FR");
+                    JSONObject data = new JSONObject()
+                            .put("account_holder_name", "John Doe")
+                            .put("customer_id", "a-customer-id")
+                            .put("iban", "FR7618106000321234566666610")
+                            .put("mandate_type", "RECURRENT")
+                            .put("billing_address", billingAddress);
+                    JSONObject data2 = new JSONObject()
+                            .put("sepa_debit", data)
+                            .put("cancel_url", "https://example.com")
+                            .put("return_url", "https://example.com")
+                            .put("merchant_account_id", "eur_pwpp_multi_account_merchant_account");
+
+                    String result = httpClient.post("merchants/pwpp_multi_account_merchant/client_api/v1/sepa_debit", data2.toString(), null, Authorization.fromString("development_testing_pwpp_multi_account_merchant"));
                     Log.d("RESULT", result);
                 } catch (Exception e) {
                     e.printStackTrace();

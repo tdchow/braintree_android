@@ -147,10 +147,9 @@ public class BraintreeHttpClient {
                 .data(requestData)
                 .addHeader(USER_AGENT_HEADER, "braintree/android/" + BuildConfig.VERSION_NAME);
 
-//        if (isRelativeURL && configuration != null) {
-//            request.baseUrl(configuration.getClientApiUrl());
-//        }
-        request.baseUrl("https://10.0.2.2:3099");
+        if (isRelativeURL && configuration != null) {
+            request.baseUrl(configuration.getClientApiUrl());
+        }
 
         if (authorization instanceof TokenizationKey) {
             request.addHeader(CLIENT_KEY_HEADER, authorization.getBearer());
@@ -180,29 +179,31 @@ public class BraintreeHttpClient {
 //        }
 
         String requestData;
-        if (authorization instanceof ClientToken) {
-            requestData = new JSONObject(data)
-                    .put(AUTHORIZATION_FINGERPRINT_KEY,
-                            ((ClientToken) authorization).getAuthorizationFingerprint())
-                    .toString();
-        } else {
-            requestData = data;
-        }
+//        if (authorization instanceof ClientToken) {
+//            requestData = new JSONObject(data)
+//                    .put(AUTHORIZATION_FINGERPRINT_KEY,
+//                            ((ClientToken) authorization).getAuthorizationFingerprint())
+//                    .toString();
+//        } else {
+//            requestData = data;
+//        }
+        requestData = data;
 
         HttpRequest request = new HttpRequest()
                 .method("POST")
                 .path(path)
                 .data(requestData)
-                .addHeader(USER_AGENT_HEADER, "braintree/android/" + BuildConfig.VERSION_NAME);
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Client-Key", "development_testing_pwpp_multi_account_merchant");
 
 //        if (isRelativeURL && configuration != null) {
 //            request.baseUrl(configuration.getClientApiUrl());
 //        }
-        request.baseUrl("http://10.0.2.2:3099/");
+        request.baseUrl("http://10.0.2.2:3000/");
 
-        if (authorization instanceof TokenizationKey) {
-            request.addHeader(CLIENT_KEY_HEADER, authorization.getBearer());
-        }
+//        if (authorization instanceof TokenizationKey) {
+//            request.addHeader(CLIENT_KEY_HEADER, authorization.getBearer());
+//        }
         return httpClient.sendRequest(request);
     }
 }
