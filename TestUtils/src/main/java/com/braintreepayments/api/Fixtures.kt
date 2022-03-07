@@ -1,6 +1,10 @@
 package com.braintreepayments.api
 
 object Fixtures {
+    // TEMP TEST FIXTURE
+    // Just needed to create an Authorization
+    // DO NOT MERGE
+    const val TEST_CLIENT_TOKEN = ""
 
     // region 3D Secure
     // language=JSON

@@ -41,6 +41,29 @@ class ConfigurationLoader {
             callback.onResult(cachedConfig, null);
         } else {
 
+            // TEMP TEST BLOCK ONLY
+            // To Bypass need for QA Client token
+            // DO NOT MERGE
+//            final String TEST_CONFIGURATION_WITH_GRAPHQL = "{" +
+//                    "     \"authorizationFingerprint\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjIwMTgwNDI2MTYtcWEiLCJpc3MiOiJodHRwczovL3FhLmJyYWludHJlZXBheW1lbnRzLmNvbSJ9.eyJleHAiOjE2NDY3NTM1NTgsImp0aSI6IjE2NWQyNGMyLTEwMzYtNDRmZi1iOTM3LWU1MGFiYjY2NDY5YiIsInN1YiI6ImludGVncmF0aW9uX21lcmNoYW50X2lkIiwiaXNzIjoiaHR0cHM6Ly9xYS5icmFpbnRyZWVwYXltZW50cy5jb20iLCJtZXJjaGFudCI6eyJwdWJsaWNfaWQiOiJpbnRlZ3JhdGlvbl9tZXJjaGFudF9pZCIsInZlcmlmeV9jYXJkX2J5X2RlZmF1bHQiOmZhbHNlfSwicmlnaHRzIjpbIm1hbmFnZV92YXVsdCJdLCJzY29wZSI6WyJCcmFpbnRyZWU6VmF1bHQiXSwib3B0aW9ucyI6e319.v77WWbLxxghC2JU2U_sEs9VO6oTg1zQTkLE3YsZFajVZj1ntXMntsf0SHJUgUsXzQAb4Vw1T0KoMAOWJUMNjkQ\"," +
+//                    "     \"clientApiUrl\": \"client_api_url\"," +
+//                    "     \"environment\": \"test\"," +
+//                    "     \"merchantId\": \"integration_merchant_id\"," +
+//                    "     \"merchantAccountId\": \"integration_merchant_account_id\"," +
+//                    "     \"graphQL\": {" +
+//                    "      \"url\": \"https://payments-qa.dev.braintree-api.com/graphql\"," +
+//                    "      \"features\": [\"tokenize_credit_cards\"]" +
+//                    "  }" +
+//                    "}";
+//
+//            try {
+//                Configuration configuration = Configuration.fromJson(TEST_CONFIGURATION_WITH_GRAPHQL);
+//                saveConfigurationToCache(context, configuration, authorization, configUrl);
+//                callback.onResult(configuration, null);
+//            } catch (JSONException jsonException) {
+//                callback.onResult(null, jsonException);
+//            }
+
             httpClient.get(configUrl, null, authorization, HttpClient.RETRY_MAX_3_TIMES, new HttpResponseCallback() {
 
                 @Override
