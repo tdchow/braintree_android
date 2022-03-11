@@ -11,7 +11,6 @@ import com.braintreepayments.demo.Merchant;
 import com.braintreepayments.demo.R;
 import com.braintreepayments.demo.Settings;
 
-// TODO: move back to com.braintreepayments.demo when AuthorizationProvider is released
 public class DemoAuthorizationProvider implements AuthorizationProvider {
 
     private final Merchant merchant;
