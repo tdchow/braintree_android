@@ -79,6 +79,7 @@ public class CardFragment extends BaseFragment implements OnCardFormSubmitListen
     private String cardFormActionLabel;
 
     private BraintreeClient braintreeClient;
+    private AlertPresenter alertPresenter = new AlertPresenter();
 
     @Override
     public void onCreate(Bundle onSaveInstanceState) {
@@ -174,9 +175,8 @@ public class CardFragment extends BaseFragment implements OnCardFormSubmitListen
         });
     }
 
-    @Override
-    protected void handleError(Exception error) {
-        super.handleError(error);
+    private void handleError(Exception error) {
+        alertPresenter.showErrorDialog(this, error);
         threeDSecureRequested = false;
     }
 
@@ -360,7 +360,7 @@ public class CardFragment extends BaseFragment implements OnCardFormSubmitListen
             americanExpressClient.getRewardsBalance(nonce, "USD", (rewardsBalance, error) -> {
                 if (rewardsBalance != null) {
                     safelyCloseLoadingView();
-                    showDialog(getAmexRewardsBalanceString(rewardsBalance));
+                    alertPresenter.showDialog(this, getAmexRewardsBalanceString(rewardsBalance));
                 } else if (error != null) {
                     handleError(error);
                 }
