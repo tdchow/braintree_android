@@ -47,6 +47,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.braintreepayments.demo.BraintreeClientFactory.createBraintreeClient;
 
 public class CardFragment extends BaseFragment implements OnCardFormSubmitListener, OnCardFormFieldFocusedListener, ThreeDSecureListener {
 
@@ -77,11 +78,13 @@ public class CardFragment extends BaseFragment implements OnCardFormSubmitListen
 
     private String cardFormActionLabel;
 
+    private BraintreeClient braintreeClient;
+
     @Override
     public void onCreate(Bundle onSaveInstanceState) {
         super.onCreate(onSaveInstanceState);
 
-        BraintreeClient braintreeClient = getBraintreeClient();
+        braintreeClient = createBraintreeClient(requireContext());
         americanExpressClient = new AmericanExpressClient(braintreeClient);
         cardClient = new CardClient(braintreeClient);
         threeDSecureClient = new ThreeDSecureClient(this, braintreeClient);
@@ -150,7 +153,6 @@ public class CardFragment extends BaseFragment implements OnCardFormSubmitListen
     private void configureCardForm() {
 
         final AppCompatActivity activity = (AppCompatActivity) getActivity();
-        BraintreeClient braintreeClient = getBraintreeClient();
 
         // check if union pay is enabled
         braintreeClient.getConfiguration((configuration, configError) -> {
@@ -212,7 +214,6 @@ public class CardFragment extends BaseFragment implements OnCardFormSubmitListen
         smsCodeContainer.setVisibility(GONE);
         smsCode.setText("");
 
-        BraintreeClient braintreeClient = getBraintreeClient();
         final AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         braintreeClient.getConfiguration((configuration, error) -> {

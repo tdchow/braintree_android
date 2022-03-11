@@ -1,10 +1,12 @@
-package com.braintreepayments.api;
+package com.braintreepayments.demo;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
+import com.braintreepayments.api.AuthorizationProvider;
+import com.braintreepayments.api.ClientTokenCallback;
 import com.braintreepayments.demo.Merchant;
 import com.braintreepayments.demo.R;
 import com.braintreepayments.demo.Settings;
