@@ -2,16 +2,35 @@ package com.braintreepayments.api;
 
 import androidx.annotation.NonNull;
 
-public class PayPalNativeCheckoutRequest {
+import org.json.JSONException;
 
-    private final String amount;
+public class PayPalNativeCheckoutRequest extends PayPalNativeRequest {
 
-    public PayPalNativeCheckoutRequest(@NonNull String amount) {
-        this.amount = amount;
+    private final String ecToken;
+    private final String returnUrl;
+    private final String correlationId;
+
+    public PayPalNativeCheckoutRequest(@NonNull String ecToken, @NonNull String returnUrl, @NonNull String correlationId) {
+        this.ecToken = ecToken;
+        this.returnUrl = returnUrl;
+        this.correlationId = correlationId;
     }
 
     @NonNull
-    public String getAmount() {
-        return amount;
+    public String getEcToken() {
+        return ecToken;
+    }
+
+    public String getReturnUrl() {
+        return returnUrl;
+    }
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    @Override
+    String createRequestBody(Configuration configuration, Authorization authorization, String successUrl, String cancelUrl) throws JSONException {
+
     }
 }

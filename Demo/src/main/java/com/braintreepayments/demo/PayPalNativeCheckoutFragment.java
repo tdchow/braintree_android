@@ -29,7 +29,7 @@ public class PayPalNativeCheckoutFragment extends Fragment {
     }
 
     private void launchPayPalNativeCheckout(View v) {
-        PayPalNativeCheckoutClient client = new PayPalNativeCheckoutClient();
+        PayPalNativeCheckoutClient client = new PayPalNativeCheckoutClient(braintreeClient);
         PayPalNativeCheckoutRequest request = new PayPalNativeCheckoutRequest("100");
         client.tokenize(request);
     }

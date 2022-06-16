@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.braintreepayments.api.PayPalCheckoutRequest;
 import com.braintreepayments.api.PayPalPaymentIntent;
-import com.braintreepayments.api.PayPalRequest;
+import com.braintreepayments.api.PayPalNativeRequest;
 import com.braintreepayments.api.PayPalVaultRequest;
 import com.braintreepayments.api.PostalAddress;
 
@@ -18,9 +18,9 @@ public class PayPalRequestFactory {
 
         String landingPageType = Settings.getPayPalLandingPageType(context);
         if (context.getString(R.string.paypal_landing_page_type_billing).equals(landingPageType)) {
-            request.setLandingPageType(PayPalRequest.LANDING_PAGE_TYPE_BILLING);
+            request.setLandingPageType(PayPalNativeRequest.LANDING_PAGE_TYPE_BILLING);
         } else if (context.getString(R.string.paypal_landing_page_type_login).equals(landingPageType)) {
-            request.setLandingPageType(PayPalRequest.LANDING_PAGE_TYPE_LOGIN);
+            request.setLandingPageType(PayPalNativeRequest.LANDING_PAGE_TYPE_LOGIN);
         }
 
         if (Settings.isPayPalCreditOffered(context)) {
@@ -49,9 +49,9 @@ public class PayPalRequestFactory {
 
         String landingPageType = Settings.getPayPalLandingPageType(context);
         if (context.getString(R.string.paypal_landing_page_type_billing).equals(landingPageType)) {
-            request.setLandingPageType(PayPalRequest.LANDING_PAGE_TYPE_BILLING);
+            request.setLandingPageType(PayPalNativeRequest.LANDING_PAGE_TYPE_BILLING);
         } else if (context.getString(R.string.paypal_landing_page_type_login).equals(landingPageType)) {
-            request.setLandingPageType(PayPalRequest.LANDING_PAGE_TYPE_LOGIN);
+            request.setLandingPageType(PayPalNativeRequest.LANDING_PAGE_TYPE_LOGIN);
         }
 
         String intentType = Settings.getPayPalIntentType(context);
