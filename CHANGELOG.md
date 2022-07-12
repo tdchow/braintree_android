@@ -5,8 +5,9 @@
 token authorization provided by the `ClientTokenProvider`
 * Add `isExplicitCancelation` parameter to `UserCanceledException`
 * Trim tokenization key and client token before parsing
+
 * PayPalNativeCheckout
-  * Adding in [PayPalNativeCheckout] module to use the native checkout for PayPal
+  * Add new module to use Native Checkout for PayPal transactions
   * Adds `PayPalNativeCheckoutClient` that handles launching the native checkout session, the session
     start parameters are similar to that of `PaypalClient` with the main difference being it doesn't
     use the browserSwitch to checkout on web but instead consumes the native checkout sdk. This provides

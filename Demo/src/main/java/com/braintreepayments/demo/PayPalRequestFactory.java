@@ -3,10 +3,14 @@ package com.braintreepayments.demo;
 import android.content.Context;
 
 import com.braintreepayments.api.PayPalCheckoutRequest;
+import com.braintreepayments.api.PayPalLineItem;
+import com.braintreepayments.api.PayPalNativeCheckoutLineItem;
 import com.braintreepayments.api.PayPalPaymentIntent;
 import com.braintreepayments.api.PayPalRequest;
 import com.braintreepayments.api.PayPalVaultRequest;
 import com.braintreepayments.api.PostalAddress;
+
+import java.util.ArrayList;
 
 public class PayPalRequestFactory {
 
@@ -66,18 +70,23 @@ public class PayPalRequestFactory {
         if (Settings.isPayPalUseractionCommitEnabled(context)) {
             request.setUserAction(PayPalCheckoutRequest.USER_ACTION_COMMIT);
         }
+        PostalAddress shippingAddress = new PostalAddress();
+        shippingAddress.setRecipientName("Brian Tree");
+        shippingAddress.setStreetAddress("1 Market St");
+        shippingAddress.setPostalCode("95113");
+        shippingAddress.setLocality("San Jose");
+        shippingAddress.setRegion("CA");
+        shippingAddress.setCountryCodeAlpha2("US");
 
-        if (Settings.usePayPalAddressOverride(context)) {
-            PostalAddress shippingAddress = new PostalAddress();
-            shippingAddress.setRecipientName("Brian Tree");
-            shippingAddress.setStreetAddress("123 Fake Street");
-            shippingAddress.setExtendedAddress("Floor A");
-            shippingAddress.setLocality("San Francisco");
-            shippingAddress.setRegion("CA");
-            shippingAddress.setCountryCodeAlpha2("US");
+        request.setShippingAddressRequired(true);
 
-            request.setShippingAddressOverride(shippingAddress);
-        }
+        request.setShippingAddressOverride(shippingAddress);
+        PayPalLineItem payPalLineItem = new PayPalLineItem(
+                PayPalLineItem.KIND_DEBIT, "item2", "1", "1.00"
+        );
+        ArrayList<PayPalLineItem> items = new ArrayList<PayPalLineItem>();
+        items.add(payPalLineItem);
+        request.setLineItems(items);
 
         return request;
     }

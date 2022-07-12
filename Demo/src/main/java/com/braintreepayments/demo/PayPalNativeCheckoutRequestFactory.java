@@ -2,11 +2,13 @@ package com.braintreepayments.demo;
 
 import android.content.Context;
 
+import com.braintreepayments.api.PayPalNativeCheckoutLineItem;
 import com.braintreepayments.api.PayPalNativeCheckoutRequest;
 import com.braintreepayments.api.PayPalNativeCheckoutPaymentIntent;
-import com.braintreepayments.api.PayPalNativeRequest;
 import com.braintreepayments.api.PayPalNativeCheckoutVaultRequest;
 import com.braintreepayments.api.PostalAddress;
+
+import java.util.ArrayList;
 
 public class PayPalNativeCheckoutRequestFactory {
 
@@ -41,6 +43,7 @@ public class PayPalNativeCheckoutRequestFactory {
 
         String intentType = Settings.getPayPalIntentType(context);
         if (intentType.equals(context.getString(R.string.paypal_intent_authorize))) {
+
             request.setIntent(PayPalNativeCheckoutPaymentIntent.AUTHORIZE);
         } else if (intentType.equals(context.getString(R.string.paypal_intent_order))) {
             request.setIntent(PayPalNativeCheckoutPaymentIntent.ORDER);
@@ -51,18 +54,15 @@ public class PayPalNativeCheckoutRequestFactory {
         if (Settings.isPayPalUseractionCommitEnabled(context)) {
             request.setUserAction(PayPalNativeCheckoutRequest.USER_ACTION_COMMIT);
         }
+        request.setShippingAddressRequired(true);
 
-        if (Settings.usePayPalAddressOverride(context)) {
-            PostalAddress shippingAddress = new PostalAddress();
-            shippingAddress.setRecipientName("Brian Tree");
-            shippingAddress.setStreetAddress("123 Fake Street");
-            shippingAddress.setExtendedAddress("Floor A");
-            shippingAddress.setLocality("San Francisco");
-            shippingAddress.setRegion("CA");
-            shippingAddress.setCountryCodeAlpha2("US");
+        PayPalNativeCheckoutLineItem payPalLineItem = new PayPalNativeCheckoutLineItem(
+            PayPalNativeCheckoutLineItem.KIND_DEBIT, "item2", "1", "1.00"
+        );
+        ArrayList<PayPalNativeCheckoutLineItem> items = new ArrayList<PayPalNativeCheckoutLineItem>();
+        items.add(payPalLineItem);
+        request.setLineItems(items);
 
-            request.setShippingAddressOverride(shippingAddress);
-        }
         request.setReturnUrl("com.braintreepayments.demo://paypalpay");
         return request;
     }
