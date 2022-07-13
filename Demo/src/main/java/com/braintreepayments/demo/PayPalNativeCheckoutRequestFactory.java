@@ -43,7 +43,6 @@ public class PayPalNativeCheckoutRequestFactory {
 
         String intentType = Settings.getPayPalIntentType(context);
         if (intentType.equals(context.getString(R.string.paypal_intent_authorize))) {
-
             request.setIntent(PayPalNativeCheckoutPaymentIntent.AUTHORIZE);
         } else if (intentType.equals(context.getString(R.string.paypal_intent_order))) {
             request.setIntent(PayPalNativeCheckoutPaymentIntent.ORDER);
@@ -59,7 +58,7 @@ public class PayPalNativeCheckoutRequestFactory {
         PayPalNativeCheckoutLineItem payPalLineItem = new PayPalNativeCheckoutLineItem(
             PayPalNativeCheckoutLineItem.KIND_DEBIT, "item2", "1", "1.00"
         );
-        ArrayList<PayPalNativeCheckoutLineItem> items = new ArrayList<PayPalNativeCheckoutLineItem>();
+        ArrayList<PayPalNativeCheckoutLineItem> items = new ArrayList<>();
         items.add(payPalLineItem);
         request.setLineItems(items);
 
